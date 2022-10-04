@@ -1,0 +1,24 @@
+h1 {
+	text-align:center;
+	padding:20px;
+}
+
+.text {
+	width:800px;
+	margin:10px auto;
+	padding:10px;
+	border: 1px solid #ccc;
+}
+
+.search {
+	width:800px;
+	margin:10px auto;
+	padding:10px;
+}
+
+.results {
+	width:800px;
+	margin:10px auto;
+	padding:10px;
+	border: 1px solid #ccc;
+}
