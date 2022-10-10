@@ -4,7 +4,6 @@ import _fs from "fs";
 import _mime from "mime";
 import _queryString from "query-string";
 import _header from "./headers.json";
-import { json } from "stream/consumers";
 
 let paginaErrore: string;
 
@@ -44,11 +43,15 @@ class Dispatcher {
       });
       req.on("end", () => {
         let json;
-        try {
-          json = JSON.stringify(parameters);
-        } catch (error) {
+        if (req.headers["content-type"].includes("json")) {
+          // JSON
+          json = JSON.parse(parameters);
+        } else {
+          // url encoded
           json = _queryString.parse(parameters);
         }
+        req.BODY = json;
+        this.innerDispatch(req, res);
       });
     }
   }
@@ -59,11 +62,15 @@ class Dispatcher {
     let resource: string = url.pathname;
     let parameters: any = url.query;
 
+    req.GET = parameters;
+
     console.log(
-      this.prompt + method + ":" + resource + " " + JSON.stringify(parameters)
+      this.prompt + method + ":" + resource + " " + JSON.stringify(req.GET)
     );
 
-    req.GET = parameters;
+    if (req.BODY && JSON.stringify(req.BODY) != "{}") {
+      console.log(`        Body: ${JSON.stringify(req.BODY)}`);
+    }
 
     if (!resource.startsWith("/api/")) {
       staticiListener(req, res, resource);

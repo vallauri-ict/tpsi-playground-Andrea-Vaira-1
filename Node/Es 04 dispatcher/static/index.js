@@ -8,7 +8,10 @@ $(document).ready(function () {
   });
 
   $("#btnInvia2").on("click", function () {
-    let request = inviaRichiesta("post", "/api/servizio2", { nome: "pluto" });
+    let request = inviaRichiesta(
+      "post",
+      "/api/servizio2" /*, { nome: "pluto" }*/
+    );
     request.fail(errore);
     request.done(function (data) {
       alert(JSON.stringify(data));

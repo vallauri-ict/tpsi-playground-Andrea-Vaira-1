@@ -25,7 +25,7 @@ _dispatcher.addListener("GET", "/api/servizio1", (req: any, res: any) => {
 
 _dispatcher.addListener("POST", "/api/servizio2", (req: any, res: any) => {
   res.writeHead(200, _headers.json);
-  let data = { ris: "servizio2 ok" };
+  let data = { ris: "Benvenuto " };
   res.write(JSON.stringify(data));
   res.end();
 });
