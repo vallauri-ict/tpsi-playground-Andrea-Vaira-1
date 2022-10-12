@@ -6,6 +6,8 @@ $(document).ready(function () {
   let _divDettagli = $("#divDettagli");
 
   let country;
+  let people;
+  let currentPos;
 
   _divDettagli.hide();
 
@@ -27,9 +29,10 @@ $(document).ready(function () {
     }
   });
 
-  function visualizzaDettagli() {
+  function visualizzaDettagli(person) {
     // gli passo il json con title name last
-    let person = $(this).prop("person");
+    // let person = $(this).prop("person");
+    // currentPos = $(this).prop("id");
 
     let request = inviaRichiesta("POST", "/api/details", { person });
     request.fail(errore);
@@ -49,22 +52,25 @@ $(document).ready(function () {
   }
 
   function elimina() {
-    let person = $(this).prev().prop("person");
+    let person = $(this).parent().prev().children("button").prop("person");
+    console.log(person);
     let request = inviaRichiesta("POST", "/api/delete", { person });
     request.fail(errore);
     request.done((data) => {
       alert("Record cancellato correttamente");
-      caricaTabella();
+      // caricaTabella();
+      window.location.reload();
     });
   }
 
   function caricaTabella() {
     let request = inviaRichiesta("POST", "/api/people", { country });
     request.fail(errore);
-    request.done((people) => {
+    request.done((data) => {
       // console.log(people);
+      people = data;
       _tabStudenti.empty();
-      for (const person of people) {
+      for (const [i, person] of people.entries()) {
         let tr = $("<tr>").appendTo(_tabStudenti);
         for (const key in person) {
           $("<td>").appendTo(tr).text(person[key]);
@@ -73,12 +79,54 @@ $(document).ready(function () {
         $("<button>")
           .appendTo(td)
           .text("Dettagli")
-          .prop("person", person)
-          .on("click", visualizzaDettagli);
+          .prop({
+            person: person,
+            id: i,
+          })
+          .on("click", function () {
+            let person = $(this).prop("person");
+            currentPos = $(this).prop("id");
+            visualizzaDettagli(person);
+          });
 
         td = $("<td>").appendTo(tr);
         $("<button>").appendTo(td).text("Elimina").on("click", elimina);
       }
     });
   }
+
+  _divDettagli
+    .find("a")
+    .eq(0)
+    .on("click", () => {
+      currentPos = 0;
+      visualizzaDettagli(people[currentPos]);
+    });
+
+  _divDettagli
+    .find("a")
+    .eq(1)
+    .on("click", () => {
+      currentPos = currentPos == 0 ? 0 : currentPos - 1;
+      visualizzaDettagli(people[currentPos]);
+    });
+
+  _divDettagli
+    .find("a")
+    .eq(2)
+    .on("click", () => {
+      currentPos =
+        currentPos == people.length - 1
+          ? people.length - 1
+          : parseInt(currentPos) + 1;
+      visualizzaDettagli(people[currentPos]);
+    });
+
+  _divDettagli
+    .find("a")
+    .eq(3)
+    .on("click", () => {
+      currentPos = people.length - 1;
+      visualizzaDettagli(people[currentPos]);
+    });
 });

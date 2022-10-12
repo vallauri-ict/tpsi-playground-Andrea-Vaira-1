@@ -1,0 +1,34 @@
+[
+  { "name": "Piemonte", "value": "Piemonte", "stationcount": "120" },
+  { "name": "Valle d'Aosta", "value": "Valle d'Aosta", "stationcount": "120" },
+  { "name": "Lombardia", "value": "Lombardia", "stationcount": "120" },
+  {
+    "name": "Trentino-Alto Adige/Südtirol",
+    "value": "Trentino-Alto Adige/Südtirol",
+    "stationcount": "120"
+  },
+  { "name": "Veneto", "value": "Veneto", "stationcount": "120" },
+  {
+    "name": "Friuli-Venezia Giulia",
+    "value": "Friuli-Venezia Giulia",
+    "stationcount": "120"
+  },
+  { "name": "Liguria", "value": "Liguria", "stationcount": "120" },
+  {
+    "name": "Emilia-Romagna",
+    "value": "Emilia-Romagna",
+    "stationcount": "120"
+  },
+  { "name": "Toscana", "value": "Toscana", "stationcount": "120" },
+  { "name": "Marche", "value": "Marche", "stationcount": "120" },
+  { "name": "Umbria", "value": "Umbria", "stationcount": "120" },
+  { "name": "Abruzzo", "value": "Abruzzo", "stationcount": "120" },
+  { "name": "Molise", "value": "Molise", "stationcount": "120" },
+  { "name": "Lazio", "value": "Lazio", "stationcount": "120" },
+  { "name": "Campania", "value": "Campania", "stationcount": "120" },
+  { "name": "Puglia", "value": "Puglia", "stationcount": "120" },
+  { "name": "Basilicata", "value": "Basilicata", "stationcount": "120" },
+  { "name": "Calabria", "value": "Calabria", "stationcount": "120" },
+  { "name": "Sicilia", "value": "Sicilia", "stationcount": "120" },
+  { "name": "Sardegna", "value": "Sardegna", "stationcount": "120" }
+]

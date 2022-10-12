@@ -86,9 +86,22 @@ dispatcher.addListener("POST", "/api/details", (req: any, res: any) => {
 
 dispatcher.addListener("POST", "/api/delete", (req: any, res: any) => {
   let personSearch = JSON.stringify(req.BODY.person);
-  for (const person of people) {
+  let trovato: boolean = false;
+  for (const [i, person] of people.results.entries()) {
     let str = JSON.stringify(getPerson(person));
     if (str == personSearch) {
+      people.results.splice(i, 1);
+      trovato = true;
+      break;
     }
   }
+  if (trovato) {
+    res.writeHead(200, _headers.json);
+    res.write(JSON.stringify({ ris: "ok" }));
+  } else {
+    res.writeHead(404, _headers.text);
+    res.write("Record non trovato");
+  }
+
+  res.end();
 });
