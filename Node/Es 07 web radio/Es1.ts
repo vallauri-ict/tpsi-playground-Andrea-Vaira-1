@@ -7,7 +7,7 @@ import fs from "fs";
 for (const state of states) {
   let count = 0;
   for (const radio of radios) {
-    if ((radio.state = state.name)) {
+    if (radio.state == state.name) {
       count++;
     }
   }

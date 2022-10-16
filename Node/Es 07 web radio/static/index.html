@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>web radio</title>
     <script type="application/javascript" src="jquery.js"></script>
+    <script type="application/javascript" src="libreria.js"></script>
     <script type="application/javascript" src="index.js"></script>
     <style>
         #wrapper {
@@ -19,19 +20,19 @@
             border-radius: 15px;
             border: 1px solid blue;
         }
-        
+
         #wrapper p {
             width: 250px;
             margin: 5px 20px;
             padding: 0px;
         }
-        
+
         #wrapper select {
             width: 250px;
             margin: 10px 20px;
             padding: 5px;
         }
-        
+
         #table {
             background-color: #ddd;
             margin: 20px auto;
@@ -41,25 +42,25 @@
             border-radius: 10px;
             border: 1px solid blue;
         }
-        
+
         #table thead {
             /* display: block; */
         }
-        
+
         #table tbody {
-           /* height: 500px;   */
-           /* display: block;  */
-           /* overflow-y: auto; */
+            /* height: 500px;   */
+            /* display: block;  */
+            /* overflow-y: auto; */
         }
-        
+
         #table th {
             border: 1px solid black;
         }
-        
+
         #table td {
             text-align: center;
         }
-        
+
         #dettagli {
             background-color: #ddd;
             margin: 20px auto;
@@ -81,24 +82,24 @@
     <div id="wrapper">
         <p> Seleziona una regione: </p>
         <select id="lstRegioni">
-			<option value="tutti"> tutti </option>
-		</select>
+            <option value="tutti"> tutti </option>
+        </select>
     </div>
 
     <table id="table">
         <thead id="thead">
-			<th width="60" > </th>
-			<th width="300"> nome </th>
-			<th width="100"> codec </th>
-			<th width="100"> bitrate </th>
-			<th width="100"> votes </th>
-			<th> </th>
-		</thead>
+            <th width="60"> </th>
+            <th width="300"> nome </th>
+            <th width="100"> codec </th>
+            <th width="100"> bitrate </th>
+            <th width="100"> votes </th>
+            <th> </th>
+        </thead>
         <tbody id="tbody"> </tbody>
     </table>
 
     <div id="dettagli">
-    </div>  
+    </div>
 
 </body>
 
