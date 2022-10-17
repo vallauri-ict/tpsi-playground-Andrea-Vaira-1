@@ -5,6 +5,7 @@ import _dispatcher from "./dispatcher";
 import _headers from "./headers.json";
 import radios from "./radios.json";
 import _mime from "mime";
+import converter from "image-to-base64";
 
 const PORT = 1337;
 
@@ -52,8 +53,19 @@ _dispatcher.addListener("GET", "/api/radios", (req: any, res: any) => {
 });
 
 _dispatcher.addListener("GET", "/like.jpg", (req: any, res: any) => {
-  /*res.writeHead(200, _headers.image);
-  let data = { ris: "Benvenuto " + req.GET.nome };
-  res.write(JSON.stringify(data));
-  res.end();*/
+  let resource = "./static/like.jpg";
+  /*_fs.readFile(resource, (err, data) => {
+    if (!err) {
+      //let header = { "Content-Type": _mime.getType(resource) };
+      res.writeHead(200, _headers.image);
+
+      //let img = btoa(data.toString());
+      res.write(data);
+      res.end();
+    } else {
+      res.writeHead(404, _headers.html);
+      res.write("File not found");
+      res.end();
+    }
+  });*/
 });
