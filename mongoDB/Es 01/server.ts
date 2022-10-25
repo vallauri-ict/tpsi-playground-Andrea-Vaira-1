@@ -15,7 +15,7 @@ const DBNAME = "5b";
 
 let server = _http.createServer((req, res) => {
   // Cerca il listener opportuno e lo manda in esecuzione
-  _dispatcher.dispatch(req, res);
+  dispatcher.dispatch(req, res);
 });
 
 server.listen(PORT, () => {
@@ -23,3 +23,35 @@ server.listen(PORT, () => {
 });
 
 /***********USER LISTENER****************/
+
+dispatcher.addListener("GET", "/api/unicorns", (req: any, res: any) => {
+  let gender = req.GET.gender;
+
+  let conn1 = MongoClient.connect(connectionString);
+  conn1.catch((err) => {
+    res.writeHead(503, _headers.text);
+    res.write("Impossibile connettersi DB server");
+    res.end();
+  });
+  conn1.then((client: any) => {
+    let collection = client.db(DBNAME).collection("unicorns");
+    let rq = collection
+      .find({ gender })
+      .project({ name: 1, gender: 1, hair: 1, weight: 1, loves: 1 })
+      .sort({ name: 1 }, 1)
+      .toArray();
+    rq.catch((err: any) => {
+      console.log("Errore esecuzione query " + err.message);
+    });
+    rq.then((data: any) => {
+      //console.log(JSON.stringify(data));
+      res.writeHead(200, _headers.json);
+      res.write(JSON.stringify(data));
+      res.end();
+    });
+    rq.finally(() => {
+      // Quando esce dal catch o dal then
+      client.close();
+    });
+  });
+});

@@ -205,6 +205,9 @@ function generaID() {
     for (const fact of facts.facts) {
       if (fact.id == str) trovato = true;
     }
+    if (trovato) {
+      generaID();
+    }
   } while (trovato);
 
   return str;
