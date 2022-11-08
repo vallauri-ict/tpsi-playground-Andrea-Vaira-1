@@ -301,3 +301,183 @@ conn16.then((client: any) => {
     }
   );
 });
+
+// Query 17
+let conn17 = MongoClient.connect(connectionString);
+conn17.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn17.then((client: any) => {
+  let collection = client.db(DBNAME).collection("unicorns");
+  collection.updateOne(
+    { name: "Aurora" },
+    { $inc: { weight: 10 }, $addToSet: { loves: "watermelon" } },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 17 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    }
+  );
+});
+
+// Query 18
+let conn18 = MongoClient.connect(connectionString);
+conn18.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn18.then((client: any) => {
+  let collection = client.db(DBNAME).collection("unicorns");
+  collection.update(
+    { name: "Pluto" },
+    { $inc: { vampires: 1 } },
+    { upsert: true },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 18 -->", data);
+      }
+      client.close();
+    }
+  );
+});
+
+// Query 19
+let conn19 = MongoClient.connect(connectionString);
+conn19.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn19.then((client: any) => {
+  let collection = client.db(DBNAME).collection("unicorns");
+  collection.updateMany(
+    { vaccinated: { $exists: false } },
+    { $set: { vaccinated: false } },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 19 -->", data);
+      }
+      client.close();
+    }
+  );
+});
+
+// Query 20
+let conn20 = MongoClient.connect(connectionString);
+conn20.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn20.then((client: any) => {
+  let collection = client.db(DBNAME).collection("unicorns");
+  collection.deleteMany(
+    // { loves: {$eq:'carrots', $eq:'grapes'} }, NON SI PUò FARE
+    // { $and: [{ loves: "carrot" }, { loves: "grape" }] }, forma estesa della AND
+    { loves: { $all: ["carrot", "papaya"] } },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 20 -->", data);
+      }
+      client.close();
+    }
+  );
+});
+
+// compito: fare query 22
+
+// Query 23
+let conn23 = MongoClient.connect(connectionString);
+conn23.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn23.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection
+    .find({
+      "posizione.stanza": 2,
+    })
+    .project({ titolo: 1, autore: 1, _id: 0 })
+    .toArray((err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 23 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    });
+});
+
+// Query 24
+let conn24 = MongoClient.connect(connectionString);
+conn24.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn24.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  // Sui campi non vettoriali non si usa $elemMatch
+  collection
+    .find({
+      "posizione.stanza": 2,
+      "posizione.scaffale": 3,
+    })
+    .project({ titolo: 1, autore: 1, _id: 0, "pubblicazioni.editore": 1 })
+    .toArray((err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 24 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    });
+});
+
+// Query 25
+let conn25 = MongoClient.connect(connectionString);
+conn25.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn25.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  // Sui campi non vettoriali non si usa $elemMatch
+  let reg = new RegExp("einaudi", "i");
+  collection
+    .find({
+      pubblicazioni: {
+        $elemMatch: {
+          editore: reg,
+          anno_pubblicazione: 2010,
+        },
+      },
+    })
+    .project({ titolo: 1, autore: 1, _id: 0, "pubblicazioni.editore": 1 })
+    .toArray((err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 25 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    });
+});
+
+// Query 26
+let conn26 = MongoClient.connect(connectionString);
+conn26.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn26.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection.distinct("pubblicazioni.editore", (err: any, data: any) => {
+    if (err) {
+      console.log("Errore esecuione query " + err.message);
+    } else {
+      console.log("QUERY 26 -->", JSON.stringify(data, null, 2));
+    }
+    client.close();
+  });
+});

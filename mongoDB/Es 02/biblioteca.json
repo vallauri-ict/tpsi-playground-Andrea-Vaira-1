@@ -1,0 +1,82 @@
+[
+ {  "titolo" : "Promessi Sposi",
+    "autore" : "Alessandro Manzoni",
+    "posizione" : {"stanza":2, "scaffale":3, "piano":4},
+    "pubblicazioni" : [ 
+        {   "editore" : "PremiateEdizioni",
+            "anno_pubblicazione" : 2012,  
+			"numero_pagine" : 400
+        }, 
+        {   "editore" : "EdizioniItalianeLibere",
+            "anno_pubblicazione" : 1999, 
+			"numero_pagine" : 500
+        }, 
+        {   "editore" : "MieEdizioni",  
+            "anno_pubblicazione" : 1996,  
+			"numero_pagine" : 600
+        }  
+    ]
+ },
+ 
+ {  "titolo" : "Il fu Mattia Pascal",
+    "autore" : "Luigi Pirandello",
+    "posizione" : {"stanza":2, "scaffale":3, "piano":5},
+    "pubblicazioni" : [ 
+        {   "editore" : "Einaudi",
+            "anno_pubblicazione" : 2011,  
+			"numero_pagine" : 402
+        }, 
+        {   "editore" : "Mondadori",
+            "anno_pubblicazione" : 2000,  
+			"numero_pagine" : 502
+        }, 
+        {   "editore" : "MieEdizioni",  
+            "anno_pubblicazione" : 1997,  
+			"numero_pagine" : 602
+        },
+        {   "editore" : "Mondadori",
+            "anno_pubblicazione" : 2021,  
+			"numero_pagine" : 702
+        }	
+    ]
+ },
+
+ {  "titolo" : "Il gattopardo",
+    "autore" : "Giuseppe Tomasi di Lampedusa",
+    "posizione" : {"stanza":2, "scaffale":4, "piano":4},
+    "pubblicazioni" : [ 
+        {   "editore" : "PremiateEdizioni",
+            "anno_pubblicazione" : 1998,  
+			"numero_pagine" : 403
+        }, 
+        {   "editore" : "Einaudi",
+            "anno_pubblicazione" : 2010,  
+			"numero_pagine" : 503
+        }, 
+        {   "editore" : "Rizzoli",  
+            "anno_pubblicazione" : 2011,  
+			"numero_pagine" : 603
+        }  
+    ]
+ },
+ 
+ {  "titolo" : "La Sicilia come metafora",
+    "autore" : "Leonardo Sciascia",
+    "posizione" : {"stanza":7, "scaffale":7, "piano":5},
+    "pubblicazioni" : [ 
+        {   "editore" : "Mondadori",
+            "anno_pubblicazione" : 2012,  
+			"numero_pagine" : 404
+        }, 
+        {   "editore" : "Rizzoli",
+            "anno_pubblicazione" : 1998,  
+			"numero_pagine" : 504
+        }, 
+        {   "editore" : "Newton Libri",  
+            "anno_pubblicazione" : 1997,  
+			"numero_pagine" : 604
+        }  
+    ]
+ }
+ 
+]
