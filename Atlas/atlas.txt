@@ -1,0 +1,5 @@
+TEST
+connection string: mongodb+srv://admin:admin@cluster0.ieoh65s.mongodb.net/test
+
+nodeJS:
+mongodb+srv://admin:admin@cluster0.ieoh65s.mongodb.net/?retryWrites=true&w=majority

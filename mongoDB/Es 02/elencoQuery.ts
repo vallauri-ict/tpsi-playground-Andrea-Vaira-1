@@ -1,6 +1,8 @@
 // mongoDb
 import { MongoClient, ObjectId } from "mongodb";
-const connectionString = "mongodb://localhost:27017";
+const connectionString =
+  "mongodb+srv://admin:admin@cluster0.ieoh65s.mongodb.net/?retryWrites=true&w=majority";
+const connectionStringLocal = "mongodb://localhost:27017";
 const DBNAME = "5b";
 
 // AVVIO DEL SERVER HTTP
@@ -480,4 +482,108 @@ conn26.then((client: any) => {
     }
     client.close();
   });
+});
+
+// Query 27
+let conn27 = MongoClient.connect(connectionString);
+conn27.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn27.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection
+    .find({
+      titolo: "Promessi Sposi",
+      "pubblicazioni.editore": "MieEdizioni",
+    })
+    .project({
+      autore: 1,
+      posizione: 1,
+      "pubblicazioni.anno_pubblicazione.$": 1,
+      "pubblicazioni.numero_pagine": 1,
+      _id: 0,
+    })
+    .toArray((err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 27 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    });
+});
+
+// Query 27b
+// tutti i libri enaudi
+let conn27b = MongoClient.connect(connectionString);
+conn27b.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn27b.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection
+    .find({
+      "pubblicazioni.editore": "Einaudi",
+    })
+    .project({
+      autore: 1,
+      titolo: 1,
+      "pubblicazioni.$": 1,
+      _id: 0,
+    })
+    .toArray((err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 27b -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    });
+});
+
+// Query 28
+let conn28 = MongoClient.connect(connectionString);
+conn28.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn28.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection.updateOne(
+    {
+      titolo: "Il fu Mattia Pascal",
+      "pubblicazioni.editore": "Mondadori",
+    },
+    { $set: { "pubblicazioni.$.anno_pubblicazione": 2022 } },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 28 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    }
+  );
+});
+
+// Query 29
+let conn29 = MongoClient.connect(connectionString);
+conn29.catch((err: any) => {
+  console.log("Errore di connessione al server");
+});
+conn29.then((client: any) => {
+  let collection = client.db(DBNAME).collection("biblioteca");
+  collection.updateMany(
+    {
+      "pubblicazioni.editore": "Mondadori",
+    },
+    { $inc: { "pubblicazioni.$.numero_pagine": 1 } },
+    (err: any, data: any) => {
+      if (err) {
+        console.log("Errore esecuione query " + err.message);
+      } else {
+        console.log("QUERY 29 -->", JSON.stringify(data, null, 2));
+      }
+      client.close();
+    }
+  );
 });
