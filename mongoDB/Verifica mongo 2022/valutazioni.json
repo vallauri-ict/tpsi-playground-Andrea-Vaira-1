@@ -1,0 +1,474 @@
+[{
+    "nome": "Alfio",
+	"genere": "m",
+	"classe": "5A",
+	"assenze":3,
+	"dob": { "$date": "2003-01-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{	
+	"nome": "Beatrice",
+	"genere": "f",
+	"classe": "5A",
+	"assenze":6,
+	"dob": { "$date": "2003-02-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":9 }
+	]
+},
+{
+	"nome": "Carlo",
+	"genere": "m",
+	"classe": "5A",
+	"assenze":0,
+	"dob": { "$date": "2003-03-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":4 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":3 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":3 }
+	]
+},
+{
+	"nome": "Flaminia",
+	"genere": "f",
+	"classe": "5A",
+	"assenze":23,
+	"dob": { "$date": "2003-04-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Daniela",
+	"genere": "f",
+	"classe": "5A",
+	"assenze":9,
+	"dob": { "$date": "2003-05-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":3 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":4 }
+	]
+},
+{
+	"nome": "Eraldo",
+	"genere": "m",
+	"classe": "5A",
+	"assenze":12,
+	"dob": { "$date": "2003-06-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Gustavo",
+	"genere": "m",
+	"classe": "5B",
+	"assenze":3,
+	"dob": { "$date": "2003-07-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Irma",
+	"genere": "f",
+	"classe": "5B",
+	"assenze":5,
+	"dob": { "$date": "2003-08-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Leonardo",
+	"genere": "m",
+	"classe": "5B",
+	"assenze":21,
+	"dob": { "$date": "2003-09-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Marta",
+	"genere": "f",
+	"classe": "5B",
+	"assenze":12,
+	"dob": { "$date":"2003-10-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Nicola",
+	"genere": "m",
+	"classe": "5B",
+	"assenze":1,
+	"dob": { "$date": "2003-11-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":6 }
+	]
+},
+{
+	"nome": "Olga",
+	"genere": "f",
+	"classe": "5B",
+	"assenze":0,
+	"dob": { "$date": "2003-12-13T11:35:00+01:00"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+
+
+
+{
+	"nome": "Roberto",
+	"genere": "m",
+	"classe": "4A",
+	"assenze":20,
+	"dob": { "$date": "2004-01-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{	
+	"nome": "Annalisa",
+	"genere": "f",
+	"classe": "4A",
+	"assenze":9,
+	"dob": { "$date": "2004-02-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Piero",
+	"genere": "m",
+	"classe": "4A",
+	"assenze":12,
+	"dob": { "$date": "2004-03-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":3 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":3 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":5 }
+	]
+},
+{
+	"nome": "Elly",
+	"genere": "f",
+	"classe": "4A",
+	"assenze":5,
+	"dob": { "$date": "2004-04-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":5 }
+	]
+},
+{
+	"nome": "Bruna",
+	"genere": "f",
+	"classe": "4A",
+	"assenze":7,
+	"dob": { "$date": "2004-05-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":6 }
+	]
+},
+{
+	"nome": "Benedetto",
+	"genere": "m",
+	"classe": "4A",
+	"assenze":13,
+	"dob": { "$date": "2004-06-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Rolando",
+	"genere": "m",
+	"classe": "4B",
+	"assenze":21,
+	"dob": { "$date": "2004-07-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Paola",
+	"genere": "f",
+	"classe": "4B",
+	"assenze":0,
+	"dob": { "$date": "2004-08-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Enrico",
+	"genere": "m",
+	"classe": "4B",
+	"assenze":5,
+	"dob": { "$date": "2004-09-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":6 }
+	]
+},
+{
+	"nome": "Marina",
+	"genere": "f",
+	"classe": "4B",
+	"assenze":4,
+	"dob": { "$date":"2004-10-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Antonio",
+	"genere": "m",
+	"classe": "4B",
+	"assenze":7,
+	"dob": { "$date": "2004-11-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Ilva",
+	"genere": "f",
+	"classe": "4B",
+	"assenze":16,
+	"dob": { "$date": "2004-12-13T11:35:00+01:00"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":9 }
+	]
+},
+
+
+
+{
+	"nome": "Franco",
+	"genere": "m",
+	"classe": "3A",
+	"assenze":18,
+	"dob": { "$date": "2005-01-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{	
+	"nome": "Patrizia",
+	"genere": "f",
+	"classe": "3A",
+	"assenze":4,
+	"dob": { "$date": "2005-02-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":4 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":6 }
+	]
+},
+{
+	"nome": "Terenzio",
+	"genere": "m",
+	"classe": "3A",
+	"assenze":20,
+	"dob": { "$date": "2005-03-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Emma",
+	"genere": "f",
+	"classe": "3A",
+	"assenze":13,
+	"dob": { "$date": "2005-04-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Donatella",
+	"genere": "f",
+	"classe": "3A",
+	"assenze":13,
+	"dob": { "$date": "2005-05-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":9 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Giancarlo",
+	"genere": "m",
+	"classe": "3A",
+	"assenze":6,
+	"dob": { "$date": "2005-06-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":8 }
+	]
+},
+{
+	"nome": "Fabrizio",
+	"genere": "m",
+	"classe": "3B",
+	"assenze":2,
+	"dob": { "$date": "2005-07-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":5 }
+	]
+},
+{
+	"nome": "Costanza",
+	"genere": "f",
+	"classe": "3B",
+	"assenze":26,
+	"dob": { "$date": "2005-08-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Fulvio",
+	"genere": "m",
+	"classe": "3B",
+	"assenze":4,
+	"dob": { "$date": "2005-09-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Ornella",
+	"genere": "f",
+	"classe": "3B",
+	"assenze":3,
+	"dob": { "$date":"2005-10-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":8 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+},
+{
+	"nome": "Osvaldo",
+	"genere": "m",
+	"classe": "3B",
+	"assenze":2,
+	"dob": { "$date": "2005-11-13T00:00:00Z"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":7 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":5 }
+	]
+},
+{
+	"nome": "Laura",
+	"genere": "f",
+	"classe": "3B",
+	"assenze":11,
+	"dob": { "$date": "2005-12-13T11:35:00+01:00"},
+	"valutazioni" :[
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"italiano", "voto":6 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"matematica", "voto":5 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"informatica", "voto":4 },
+	  {"data": { "$date": "2022-10-09T00:00:00Z"}, "disciplina":"sistemi", "voto":7 }
+	]
+}]

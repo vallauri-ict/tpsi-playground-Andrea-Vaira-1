@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Query 1 </title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="favicon.ico" type="image/png" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="libreria.js"></script>
+	<script src="index.js"></script>
+
+	<style>
+		td,
+		th {
+			text-align: center
+		}
+	</style>
+</head>
+
+<body>
+	<h1 style="text-align:center; padding:15px;"> Query 1 </h1>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class='col-xl-3'></div>
+			<div class='col-xl-6 col-sm-12'>
+
+				<div class="card">
+					<div class="card-header bg-secondary text-white font-weight-bold">
+						Filters
+					</div>
+					<div class="card-body">
+						<div class='row'>
+							<!-- ListBox Hair  -->
+							<div class="col-xl-4 col-sm-4 form-group text-center" id="divHair">
+								<div class="form-check-inline">
+									<label for="lstClasses" class="checkbox-inline font-weight-bold"
+										style="padding-right:10px">
+										Class:
+									</label>
+									<select class="form-control" id="lstClasses">
+										<!--option>  </option-->
+									</select>
+								</div>
+							</div>
+
+							<div class='col-xl-1 col-sm-1'> </div>
+
+							<div class='col-xl-5 col-sm-5 form-group'>
+								<div class="form-check-inline">
+									<span class="font-weight-bold" style="padding-right:10px">
+										Gender:
+									</span>
+									<label class="form-check-label">
+										<input type="checkbox" class="form-check-input" value="Male">M
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input type="checkbox" class="form-check-input" value="Famele">F
+									</label>
+								</div>
+							</div>
+
+							<div class='col-xl-1 col-sm-2'>
+								<button type="button" class="btn btn-success" id="btnFind">
+									Find
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="table-responsive ">
+					<table class="table table-hover" style="font-size:10pt">
+						<thead class="bg-secondary" style="color:white">
+							<tr>
+								<th width="28%"> </th>
+								<th width="18%"> Italiano </th>
+								<th width="18%"> Matematica </th>
+								<th width="18%"> Informatica </th>
+								<th width="18%"> Sistemi </th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<div class='col-xl-3'></div>
+		</div>
+	</div>
+	<button id="es2">ES 2</button>
+	<button id="es3">ES 3</button>
+	<button id="es4">ES 4</button>
+	<button id="es5">ES 5</button>
+	<button id="es6">ES 6</button>
+</body>
+
+</html>
