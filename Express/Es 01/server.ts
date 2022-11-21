@@ -1,7 +1,8 @@
 import http from "http";
 import url from "url";
 import fs from "fs";
-import enviroment from "./enviroment.json";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 import express from "express";
 const app = express();
 
@@ -9,11 +10,7 @@ const PORT = 1337;
 
 // mongoDb
 import { MongoClient, ObjectId } from "mongodb";
-import { skipPartiallyEmittedExpressions } from "typescript";
-const user = enviroment.atlas.user;
-const pwd = enviroment.atlas.password;
-const connectionString = `mongodb+srv://${user}:${pwd}@cluster0.ieoh65s.mongodb.net/?retryWrites=true&w=majority`;
-const connectionStringLocal = "mongodb://localhost:27017";
+const connectionString: any = process.env.connectionString;
 const DBNAME = "5b";
 
 //CREAZIONE E AVVIO DEL SERVER HTTP
@@ -38,7 +35,7 @@ function init() {
 /***********MIDDLEWARE****************/
 // 1 request log
 app.use("/", (req: any, res: any, next: any) => {
-  console.log("---> " + req.method + ": " + req.originalUrl);
+  console.log(req.method + ": " + req.originalUrl);
   next();
 });
 
@@ -47,22 +44,102 @@ app.use("/", (req: any, res: any, next: any) => {
 app.use("/", express.static("./static"));
 
 // 3 lettura dei parametri POST
-app.use("/", express.json());
+app.use("/", express.json({ limit: "50mb" }));
+app.use("/", express.urlencoded({ limit: "50mb", extended: true }));
 
 // 4 log dei parametri get e post
 app.use("/", (req: any, res: any, next: any) => {
   // parametri get .query, post .body
   if (Object.keys(req.query).length != 0) {
+    console.log("---> Parametri GET: " + JSON.stringify(req.query));
   }
   if (Object.keys(req.body).length != 0) {
+    console.log("---> Parametri BODY: " + JSON.stringify(req.body));
   }
-  console.log("---> " + req.method + ": " + req.originalUrl);
   next();
 });
 
-/***********USER LISTENER****************/
+// Apertura della connessione
+app.use("/api/", (req: any, res: any, next: any) => {
+  let connection = new MongoClient(connectionString);
+  connection
+    .connect()
+    .catch((err: any) => {
+      res.status(503);
+      res.send("Errore di connessione al DB");
+    })
+    .then((client: any) => {
+      req["client"] = client;
+      next();
+    });
+});
 
+/***********USER LISTENER****************/
+app.get("/api/richiesta1", (req: any, res: any, next: any) => {
+  if (!req.query.nome) {
+    res.status(500);
+    res.send("Parametro nome mancante");
+    req.client.close();
+  } else {
+    let collection = req.client.db(DBNAME).collection("unicorns");
+    collection.findOne({ name: req.query.nome }, (err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore esecuzione query");
+      } else {
+        res.send(data);
+      }
+      req.client.close();
+    });
+  }
+});
+
+app.patch("/api/richiesta2", (req: any, res: any, next: any) => {
+  let unicorn = req.body.nome;
+  let nVampires = req.body.nVampiri;
+
+  if (!unicorn) {
+    res.status(500);
+    res.send("Parametro nome mancante");
+    req.client.close();
+  } else {
+    let collection = req.client.db(DBNAME).collection("unicorns");
+    collection.updateOne(
+      { name: unicorn },
+      { $inc: { vampires: nVampires } },
+      (err: any, data: any) => {
+        if (err) {
+          res.status(500);
+          res.send("Errore esecuzione query");
+        } else {
+          res.send(data);
+        }
+        req.client.close();
+      }
+    );
+  }
+});
+
+app.get(
+  "/api/richiestaParams/:gender/:hair",
+  (req: any, res: any, next: any) => {
+    let gender = req.params.gender;
+    let hair = req.params.hair;
+
+    let collection = req.client.db(DBNAME).collection("unicorns");
+    collection.find({ gender, hair }).toArray((err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore esecuzione query");
+      } else {
+        res.send(data);
+      }
+      req.client.close();
+    });
+  }
+);
 /***********DEFAULT ROUTE****************/
+
 app.use("/", (req: any, res: any, next: any) => {
   res.status(404);
   if (req.originalUrl.startsWith("/api/")) {
@@ -70,4 +147,10 @@ app.use("/", (req: any, res: any, next: any) => {
   } else {
     res.send(paginaErrore);
   }
+});
+
+app.use("/", (err: any, req: any, res: any, next: any) => {
+  console.log("SERVER ERROR " + err.stack);
+  res.status(500);
+  res.send(err.message);
 });
