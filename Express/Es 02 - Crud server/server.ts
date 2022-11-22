@@ -107,6 +107,58 @@ app.get(
     });
   }
 );
+
+app.get("/api/:collection", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.find().toArray((err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      let response = [];
+      for (const item of data) {
+        let key = Object.keys(item)[1];
+        response.push({ _id: item["_id"], val: item[key] });
+      }
+      res.send(response);
+    }
+    req.client.close();
+  });
+});
+
+app.get("/api/:collection/:id", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+  let id = new ObjectId(req.params.id);
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.findOne({ _id: id }, (err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req.client.close();
+  });
+});
+
+app.post("/api/:collection", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+  let params = req.body.stream;
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.insertOne(params, (err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req.client.close();
+  });
+});
 /***********DEFAULT ROUTE****************/
 
 app.use("/", (req: any, res: any, next: any) => {
