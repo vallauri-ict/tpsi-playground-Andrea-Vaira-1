@@ -108,6 +108,46 @@ app.get(
   }
 );
 
+app.get("/api/unicorn", (req: any, res: any, next: any) => {
+  let params = {
+    hair: req.query.hair,
+    gender: req.query.gender,
+  };
+
+  let collection = req.client.db(DBNAME).collection("unicorns");
+  if (req.query.gender) {
+    collection.find(params).toArray((err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore esecuzione query");
+      } else {
+        let response = [];
+        for (const item of data) {
+          let key = Object.keys(item)[1];
+          response.push({ _id: item["_id"], val: item[key] });
+        }
+        res.send(response);
+      }
+      req.client.close();
+    });
+  } else {
+    collection.find({ hair: req.query.hair }).toArray((err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore esecuzione query");
+      } else {
+        let response = [];
+        for (const item of data) {
+          let key = Object.keys(item)[1];
+          response.push({ _id: item["_id"], val: item[key] });
+        }
+        res.send(response);
+      }
+      req.client.close();
+    });
+  }
+});
+
 app.get("/api/:collection", (req: any, res: any, next: any) => {
   let collectionSelected = req.params.collection;
 
@@ -159,6 +199,7 @@ app.post("/api/:collection", (req: any, res: any, next: any) => {
     req.client.close();
   });
 });
+
 /***********DEFAULT ROUTE****************/
 
 app.use("/", (req: any, res: any, next: any) => {

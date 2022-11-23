@@ -42,7 +42,8 @@ $(document).ready(function () {
       .addClass("btn btn-success")
       .text("Aggiungi")
       .on("click", () => {
-        let stream = divDettagli.children("textarea").text();
+        let stream = divDettagli.children("textarea").val(); // .val() non .text()
+        stream = stream.replaceAll("'", '"'); // virgolette singole --> err, doppie --> OK
         try {
           stream = JSON.parse(stream);
         } catch (error) {
@@ -61,38 +62,73 @@ $(document).ready(function () {
       });
   });
 
+  $("#btnFind").on("click", function () {
+    // prendo i parametri
+    let hair = $("#lstHair").val().toLowerCase();
+    let gender = null;
+    if (!$("#chkMale").prop("checked") && !$("#chkFemale").prop("checked")) {
+      alert("Seleziona almeno un genere");
+    } else if (
+      ($("#chkMale").prop("checked") && !$("#chkFemale").prop("checked")) ||
+      (!$("#chkMale").prop("checked") && $("#chkFemale").prop("checked"))
+    ) {
+      gender = divFilters.find("input[type=checkbox]:checked").val();
+    } else {
+      gender = null;
+    }
+    if (gender != null) {
+      let request = inviaRichiesta("GET", "/api/unicorn", { hair, gender });
+      request.fail(errore);
+      request.done((data) => {
+        console.log(data);
+        createTable(data);
+      });
+    } else {
+      let request = inviaRichiesta("GET", "/api/unicorn", { hair });
+      request.fail(errore);
+      request.done((data) => {
+        console.log(data);
+        createTable(data);
+      });
+    }
+  });
+
   function getCollection() {
     // let collection = divCollections.children('input:checked').val();
     let request = inviaRichiesta("GET", "/api/" + currentCollection);
     request.fail(errore);
     request.done((data) => {
       console.log(data);
-      let tbody = table.children("tbody");
-      tbody.empty();
-      divIntestazione.find("strong").eq(1).text(data.length);
-      for (const record of data) {
-        let tr = $("<tr>").appendTo(tbody);
-        $("<td>")
-          .appendTo(tr)
-          .text(record._id)
-          .prop("_id", record._id)
-          .on("click", dettagli);
-        $("<td>")
-          .appendTo(tr)
-          .text(record.val)
-          .prop("_id", record._id)
-          .on("click", dettagli);
-        let td = $("<td>").appendTo(tr);
-        $("<div>").appendTo(td);
-        $("<div>").appendTo(td);
-        $("<div>").appendTo(td);
-      }
+      createTable(data);
       if (currentCollection == "unicorns") {
         divFilters.show();
       } else {
         divFilters.hide();
       }
     });
+  }
+
+  function createTable(data) {
+    let tbody = table.children("tbody");
+    tbody.empty();
+    divIntestazione.find("strong").eq(1).text(data.length);
+    for (const record of data) {
+      let tr = $("<tr>").appendTo(tbody);
+      $("<td>")
+        .appendTo(tr)
+        .text(record._id)
+        .prop("_id", record._id)
+        .on("click", dettagli);
+      $("<td>")
+        .appendTo(tr)
+        .text(record.val)
+        .prop("_id", record._id)
+        .on("click", dettagli);
+      let td = $("<td>").appendTo(tr);
+      $("<div>").appendTo(td);
+      $("<div>").appendTo(td);
+      $("<div>").appendTo(td);
+    }
   }
 
   function dettagli() {
