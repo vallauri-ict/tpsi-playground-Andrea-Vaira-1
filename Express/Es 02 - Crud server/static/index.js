@@ -36,62 +36,66 @@ $(document).ready(function () {
   $("#btnAdd").on("click", () => {
     divDettagli.empty();
     //<button type="button" class="btn btn-success" id="btnAdd">
-    $("<textarea>").text("{}").appendTo(divDettagli);
-    $("<button>")
-      .appendTo(divDettagli)
-      .addClass("btn btn-success")
-      .text("Aggiungi")
-      .on("click", () => {
-        let stream = divDettagli.children("textarea").val(); // .val() non .text()
-        stream = stream.replaceAll("'", '"'); // virgolette singole --> err, doppie --> OK
-        try {
-          stream = JSON.parse(stream);
-        } catch (error) {
-          alert("Formato inserito non valido");
-          return;
-        }
-        let request = inviaRichiesta("POST", "/api/" + currentCollection, {
-          stream,
-        });
-        request.fail(errore);
-        request.done((data) => {
-          console.log(data);
-          alert("Record inserito correttamente");
-          getCollection();
-        });
-      });
+    $("<textarea>")
+      .prop("placeholder", '{"key":"value"}')
+      .appendTo(divDettagli);
+    addButton("post", "");
   });
 
   $("#btnFind").on("click", function () {
     // prendo i parametri
     let hair = $("#lstHair").val().toLowerCase();
-    let gender = null;
+    let param = {
+      hair,
+    };
     if (!$("#chkMale").prop("checked") && !$("#chkFemale").prop("checked")) {
       alert("Seleziona almeno un genere");
     } else if (
       ($("#chkMale").prop("checked") && !$("#chkFemale").prop("checked")) ||
       (!$("#chkMale").prop("checked") && $("#chkFemale").prop("checked"))
     ) {
-      gender = divFilters.find("input[type=checkbox]:checked").val();
-    } else {
-      gender = null;
+      let gender = divFilters.find("input[type=checkbox]:checked").val();
+      param["gender"] = gender;
     }
-    if (gender != null) {
-      let request = inviaRichiesta("GET", "/api/unicorn", { hair, gender });
-      request.fail(errore);
-      request.done((data) => {
-        console.log(data);
-        createTable(data);
-      });
-    } else {
-      let request = inviaRichiesta("GET", "/api/unicorn", { hair });
-      request.fail(errore);
-      request.done((data) => {
-        console.log(data);
-        createTable(data);
-      });
-    }
+    let request = inviaRichiesta("GET", "/api/" + currentCollection, param);
+    request.fail(errore);
+    request.done((data) => {
+      console.log(data);
+      createTable(data);
+    });
   });
+
+  function addButton(method, id) {
+    $("<button>")
+      .appendTo(divDettagli)
+      .addClass("btn btn-success")
+      .text("Invia")
+      .on("click", () => {
+        let stream = divDettagli.children("textarea").val(); // .val() non .text()
+        try {
+          stream = JSON.parse(stream);
+        } catch (error) {
+          alert(
+            "Formato inserito non valido, chiavi e valori devono usare apici doppi"
+          );
+          return;
+        }
+
+        let request = inviaRichiesta(
+          method,
+          "/api/" + currentCollection + "/" + id,
+          {
+            stream,
+          }
+        );
+        request.fail(errore);
+        request.done((data) => {
+          console.log(data);
+          alert("Operazione eseguita correttamente");
+          getCollection();
+        });
+      });
+  }
 
   function getCollection() {
     // let collection = divCollections.children('input:checked').val();
@@ -118,30 +122,71 @@ $(document).ready(function () {
         .appendTo(tr)
         .text(record._id)
         .prop("_id", record._id)
+        .prop("action", "get")
         .on("click", dettagli);
       $("<td>")
         .appendTo(tr)
         .text(record.val)
         .prop("_id", record._id)
+        .prop("action", "get")
         .on("click", dettagli);
       let td = $("<td>").appendTo(tr);
-      $("<div>").appendTo(td);
-      $("<div>").appendTo(td);
-      $("<div>").appendTo(td);
+      $("<div>")
+        .appendTo(td)
+        .prop("action", "patch")
+        .prop("_id", record._id)
+        .on("click", dettagli);
+      $("<div>")
+        .appendTo(td)
+        .prop("action", "put")
+        .prop("_id", record._id)
+        .on("click", dettagli);
+      $("<div>")
+        .appendTo(td)
+        .prop("_id", record._id)
+        .on("click", eliminaRecord);
+    }
+  }
+
+  function eliminaRecord() {
+    let _id = $(this).prop("_id");
+    if (confirm("Sicuro di voler eliminare il record?")) {
+      let request = inviaRichiesta(
+        "DELETE",
+        "/api/" + currentCollection + "/" + _id
+      );
+      request.fail(errore);
+      request.done((ris) => {
+        console.log(ris);
+        alert("Record eliminato correttamente");
+        getCollection();
+      });
     }
   }
 
   function dettagli() {
     let _id = $(this).prop("_id");
+    let action = $(this).prop("action");
+
     let request = inviaRichiesta("GET", `/api/${currentCollection}/${_id}`);
     request.fail(errore);
     request.done((data) => {
       console.log(data);
-      let str = "";
-      for (const key in data) {
-        str += `<b>${key}</b>: ${data[key]} <br>`;
+      divDettagli.empty();
+      if (action == "get") {
+        let str = "";
+        for (const key in data) {
+          str += `<b>${key}</b>: ${JSON.stringify(data[key])} <br>`;
+        }
+        divDettagli.html(str);
+      } else {
+        delete data["_id"];
+        let textarea = $("<textarea>")
+          .appendTo(divDettagli)
+          .val(JSON.stringify(data, null, 2));
+        textarea.css("height", textarea.get(0).scrollHeight + "px");
+        addButton(action, _id);
       }
-      divDettagli.html(str);
     });
   }
 });

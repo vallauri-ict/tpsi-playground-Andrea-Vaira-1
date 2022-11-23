@@ -2,14 +2,13 @@ import http from "http";
 import url from "url";
 import fs from "fs";
 import dotenv from "dotenv";
-dotenv.config({ path: ".env" });
-import express from "express";
-const app = express();
-
-const PORT = 1337;
-
-// mongoDb
 import { MongoClient, ObjectId } from "mongodb";
+import express from "express";
+
+// config
+const PORT = 1337;
+dotenv.config({ path: ".env" });
+const app = express();
 const connectionString: any = process.env.connectionString;
 const DBNAME = "5b";
 
@@ -108,51 +107,12 @@ app.get(
   }
 );
 
-app.get("/api/unicorn", (req: any, res: any, next: any) => {
-  let params = {
-    hair: req.query.hair,
-    gender: req.query.gender,
-  };
-
-  let collection = req.client.db(DBNAME).collection("unicorns");
-  if (req.query.gender) {
-    collection.find(params).toArray((err: any, data: any) => {
-      if (err) {
-        res.status(500);
-        res.send("Errore esecuzione query");
-      } else {
-        let response = [];
-        for (const item of data) {
-          let key = Object.keys(item)[1];
-          response.push({ _id: item["_id"], val: item[key] });
-        }
-        res.send(response);
-      }
-      req.client.close();
-    });
-  } else {
-    collection.find({ hair: req.query.hair }).toArray((err: any, data: any) => {
-      if (err) {
-        res.status(500);
-        res.send("Errore esecuzione query");
-      } else {
-        let response = [];
-        for (const item of data) {
-          let key = Object.keys(item)[1];
-          response.push({ _id: item["_id"], val: item[key] });
-        }
-        res.send(response);
-      }
-      req.client.close();
-    });
-  }
-});
-
 app.get("/api/:collection", (req: any, res: any, next: any) => {
   let collectionSelected = req.params.collection;
+  let param = req.query;
 
   let collection = req.client.db(DBNAME).collection(collectionSelected);
-  collection.find().toArray((err: any, data: any) => {
+  collection.find(param).toArray((err: any, data: any) => {
     if (err) {
       res.status(500);
       res.send("Errore esecuzione query");
@@ -174,6 +134,58 @@ app.get("/api/:collection/:id", (req: any, res: any, next: any) => {
 
   let collection = req.client.db(DBNAME).collection(collectionSelected);
   collection.findOne({ _id: id }, (err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req.client.close();
+  });
+});
+
+app.delete("/api/:collection/:id", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+  let id = new ObjectId(req.params.id);
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.deleteOne({ _id: id }, (err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req.client.close();
+  });
+});
+
+app.patch("/api/:collection/:id", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+  let id = new ObjectId(req.params.id);
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.updateOne(
+    { _id: id },
+    { $set: req.body.stream },
+    (err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore esecuzione query");
+      } else {
+        res.send(data);
+      }
+      req.client.close();
+    }
+  );
+});
+
+app.put("/api/:collection/:id", (req: any, res: any, next: any) => {
+  let collectionSelected = req.params.collection;
+  let id = new ObjectId(req.params.id);
+
+  let collection = req.client.db(DBNAME).collection(collectionSelected);
+  collection.replaceOne({ _id: id }, req.body.stream, (err: any, data: any) => {
     if (err) {
       res.status(500);
       res.send("Errore esecuzione query");
@@ -206,12 +218,16 @@ app.use("/", (req: any, res: any, next: any) => {
   res.status(404);
   if (req.originalUrl.startsWith("/api/")) {
     res.send("API non disponibile");
+    req.client.close();
   } else {
     res.send(paginaErrore);
   }
 });
 
 app.use("/", (err: any, req: any, res: any, next: any) => {
+  if (req.client) {
+    req.client.close();
+  }
   console.log("SERVER ERROR " + err.stack);
   res.status(500);
   res.send(err.message);
