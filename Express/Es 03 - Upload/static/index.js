@@ -31,14 +31,99 @@ $(document).ready(function () {
       alert("Inserire username e immagine");
     } else {
       let formData = new FormData();
-      formData.append(image);
-      formData.append(username);
+      formData.append("image", image);
+      formData.append("username", username);
 
       let request = inviaRichiestaMultipart(
         "POST",
         "/api/binaryUpload",
         formData
       );
+      request.fail(errore);
+      request.done((ris) => {
+        console.log(ris);
+        alert("Inserimento avvenuto correttamente");
+        getImages();
+      });
+    }
+  });
+
+  $("#btnBase64").on("click", async () => {
+    let username = txtUser.val();
+    let image = txtFile.prop("files")[0];
+
+    /*let rq = getBase64(image);
+    rq.catch((err) => {
+      console.error(err);
+    });
+    rq.then((imgBase64) => {
+      console.log(imgBase64);
+    });*/
+    if (!username || !image) {
+      alert("Inserire username e immagine");
+    } else {
+      //let imgBase64 = await getBase64(image);
+      let imgBase64 = await resizeAndConvert(image);
+      console.log(imgBase64);
+      let request = inviaRichiesta("POST", "/api/base64Upload", {
+        username,
+        img: imgBase64.toString(),
+      });
+      request.fail(errore);
+      request.done((ris) => {
+        console.log(ris);
+        alert("Inserimento avvenuto correttamente");
+        getImages();
+      });
+    }
+  });
+
+  $("#btnBinaryCloudinary").on("click", function () {
+    let username = txtUser.val();
+    let image = txtFile.prop("files")[0];
+
+    if (!username || !image) {
+      alert("Inserire username e immagine");
+    } else {
+      let formData = new FormData();
+      formData.append("image", image);
+      formData.append("username", username);
+
+      let request = inviaRichiestaMultipart(
+        "POST",
+        "/api/binaryCloudinary",
+        formData
+      );
+      request.fail(errore);
+      request.done((ris) => {
+        console.log(ris);
+        alert("Inserimento avvenuto correttamente");
+        getImages();
+      });
+    }
+  });
+
+  $("#btnBase64Cloudinary").on("click", async () => {
+    let username = txtUser.val();
+    let image = txtFile.prop("files")[0];
+
+    /*let rq = getBase64(image);
+    rq.catch((err) => {
+      console.error(err);
+    });
+    rq.then((imgBase64) => {
+      console.log(imgBase64);
+    });*/
+    if (!username || !image) {
+      alert("Inserire username e immagine");
+    } else {
+      //let imgBase64 = await getBase64(image);
+      let imgBase64 = await resizeAndConvert(image);
+      console.log(imgBase64);
+      let request = inviaRichiesta("POST", "/api/base64Cloudinary", {
+        username,
+        img: imgBase64.toString(),
+      });
       request.fail(errore);
       request.done((ris) => {
         console.log(ris);
@@ -104,6 +189,21 @@ function resizeAndConvert(file) {
             });
         }
       };
+    };
+  });
+}
+
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      //console.log(reader.result);
+      resolve(reader.result);
+    };
+    reader.onerror = function (error) {
+      //console.log("Error: ", error);
+      reject(error);
     };
   });
 }

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
 import express from "express";
 import fileUpload from "express-fileupload";
+import cloudinary from "cloudinary";
 
 // config
 const PORT = 1337;
@@ -12,7 +13,7 @@ dotenv.config({ path: ".env" });
 const app = express();
 const connectionString: any = process.env.connectionString;
 const DBNAME = "5b";
-
+cloudinary.v2.config(JSON.parse(process.env.cloudinary as string));
 //CREAZIONE E AVVIO DEL SERVER HTTP
 let server = http.createServer(app);
 let paginaErrore: string = "";
@@ -44,8 +45,8 @@ app.use("/", (req: any, res: any, next: any) => {
 app.use("/", express.static("./static"));
 
 // 3 lettura dei parametri POST
-app.use("/", express.json({ limit: "50mb" }));
-app.use("/", express.urlencoded({ limit: "50mb", extended: true }));
+app.use("/", express.json({ limit: "20mb" }));
+app.use("/", express.urlencoded({ limit: "20mb", extended: true }));
 
 // 4 log dei parametri get e post
 app.use("/", (req: any, res: any, next: any) => {
@@ -60,7 +61,7 @@ app.use("/", (req: any, res: any, next: any) => {
 });
 
 // 5 Upload dei file binari
-app.use("/", fileUpload({}));
+app.use("/", fileUpload({ limits: { fileSize: 20 * 1024 * 1024 } })); // 20 MB
 
 // Apertura della connessione
 app.use("/api/", (req: any, res: any, next: any) => {
@@ -72,14 +73,14 @@ app.use("/api/", (req: any, res: any, next: any) => {
       res.send("Errore di connessione al DB");
     })
     .then((client: any) => {
-      req["client"] = client;
+      req["connessione"] = client;
       next();
     });
 });
 
 /***********USER LISTENER****************/
 app.get("/api/images", (req: any, res: any, next: any) => {
-  let collection = req.client.db(DBNAME).collection("images");
+  let collection = req["connessione"].db(DBNAME).collection("images");
 
   collection.find().toArray((err: any, data: any) => {
     if (err) {
@@ -88,7 +89,7 @@ app.get("/api/images", (req: any, res: any, next: any) => {
     } else {
       res.send(data);
     }
-    req.client.close();
+    req["connessione"].close();
   });
 });
 
@@ -100,20 +101,58 @@ app.post("/api/binaryUpload", (req: any, res: any, next: any) => {
     let username = req.body.username;
     let image = req.files.image;
 
-    image.mv("./static/img/" + image.name);
+    image.mv("./static/img/" + image.name, (err: any) => {
+      if (err) {
+        res.status(500);
+        res.send(err.message);
+      } else {
+        let record = {
+          username,
+          img: image.name,
+        };
+        let collection = req["connessione"].db(DBNAME).collection("images");
+        collection.insertOne(record, (err: any, data: any) => {
+          if (err) {
+            res.status(500);
+            res.send("Errore inserimento record");
+          } else {
+            res.send(data);
+          }
+          req["connessione"].close();
+        });
+      }
+    });
   }
+});
 
-  let collection = req.client.db(DBNAME).collection("images");
+app.post("/api/base64Upload", (req: any, res: any, next: any) => {
+  if (!req.body.username || !req.body.img) {
+    res.status(404);
+    res.send("File or username is missed");
+  } else {
+    let record = {
+      username: req.body.username,
+      img: req.body.img,
+    };
+    let collection = req["connessione"].db(DBNAME).collection("images");
+    collection.insertOne(record, (err: any, data: any) => {
+      if (err) {
+        res.status(500);
+        res.send("Errore inserimento record");
+      } else {
+        res.send(data);
+      }
+      req["connessione"].close();
+    });
+  }
+});
 
-  collection.find().toArray((err: any, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore lettura connesioni");
-    } else {
-      res.send(data);
-    }
-    req.client.close();
-  });
+app.post("/api/base64Cloudinary", (req: any, res: any, next: any) => {
+  if (!req.body.username || !req.body.img) {
+    res.status(404);
+    res.send("File or username is missed");
+  } else {
+  }
 });
 
 /***********DEFAULT ROUTE****************/
@@ -122,15 +161,15 @@ app.use("/", (req: any, res: any, next: any) => {
   res.status(404);
   if (req.originalUrl.startsWith("/api/")) {
     res.send("API non disponibile");
-    req.client.close();
+    req["connessione"].close();
   } else {
     res.send(paginaErrore);
   }
 });
 
 app.use("/", (err: any, req: any, res: any, next: any) => {
-  if (req.client) {
-    req.client.close();
+  if (req["connessione"]) {
+    req["connessione"].close();
   }
   console.log("SERVER ERROR " + err.stack);
   res.status(500);
