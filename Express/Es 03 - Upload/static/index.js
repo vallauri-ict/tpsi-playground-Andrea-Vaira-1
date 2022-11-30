@@ -15,7 +15,10 @@ $(document).ready(function () {
         let tr = $("<tr>").appendTo(tbody).addClass("text-center");
         $("<td>").appendTo(tr).text(item.username).css("font-size", "14pt");
         let td = $("<td>").appendTo(tr);
-        if (!item.img.toString().startsWith("data:image")) {
+        if (
+          !item.img.toString().startsWith("data:image") && // se è base64 sul db
+          !item.img.toString().startsWith("https://") // se è su cloudinary
+        ) {
           item.img = "img/" + item.img;
         }
         $("<img>").prop("src", item.img).css("max-height", "60px").appendTo(td);
@@ -35,6 +38,7 @@ $(document).ready(function () {
       formData.append("username", username);
 
       let request = inviaRichiestaMultipart(
+        // flusso binario, non urlencoded e non JSON
         "POST",
         "/api/binaryUpload",
         formData

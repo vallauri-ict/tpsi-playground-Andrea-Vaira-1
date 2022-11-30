@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
 import express from "express";
 import fileUpload from "express-fileupload";
-import cloudinary from "cloudinary";
+import cloudinary, { UploadApiResponse } from "cloudinary";
 
 // config
 const PORT = 1337;
@@ -94,6 +94,7 @@ app.get("/api/images", (req: any, res: any, next: any) => {
 });
 
 app.post("/api/binaryUpload", (req: any, res: any, next: any) => {
+  // l'immagine la recupera in req.files
   if (!req.body.username || !req.files || Object.keys(req.files).length == 0) {
     res.status(404);
     res.send("Username or file is missing");
@@ -101,11 +102,13 @@ app.post("/api/binaryUpload", (req: any, res: any, next: any) => {
     let username = req.body.username;
     let image = req.files.image;
 
+    // gli assegno il path della cartella e salvo il file
     image.mv("./static/img/" + image.name, (err: any) => {
       if (err) {
         res.status(500);
         res.send(err.message);
       } else {
+        // scrivo il nome dell'immagine nel db
         let record = {
           username,
           img: image.name,
@@ -126,10 +129,12 @@ app.post("/api/binaryUpload", (req: any, res: any, next: any) => {
 });
 
 app.post("/api/base64Upload", (req: any, res: any, next: any) => {
+  //prenod i parametri post
   if (!req.body.username || !req.body.img) {
     res.status(404);
     res.send("File or username is missed");
   } else {
+    // salvo tutta l'immagine su disco base64
     let record = {
       username: req.body.username,
       img: req.body.img,
@@ -152,6 +157,76 @@ app.post("/api/base64Cloudinary", (req: any, res: any, next: any) => {
     res.status(404);
     res.send("File or username is missed");
   } else {
+    cloudinary.v2.uploader
+      .upload(req.body.img, { folder: "myImages" })
+      .then((result: UploadApiResponse) => {
+        let record = {
+          username: req.body.username,
+          img: result.secure_url,
+        };
+        let collection = req["connessione"].db(DBNAME).collection("images");
+        collection.insertOne(record, (err: any, data: any) => {
+          if (err) {
+            res.status(500);
+            res.send("Errore inserimento record");
+          } else {
+            res.send(data);
+          }
+          req["connessione"].close();
+        });
+      })
+      .catch((err: any) => {
+        res.status(500);
+        res.send("Error upload file to Cloudinary. Error: " + err.message);
+      });
+  }
+});
+
+app.post("/api/binaryCloudinary", (req: any, res: any, next: any) => {
+  // l'immagine la recupera in req.files
+  if (!req.body.username || !req.files || Object.keys(req.files).length == 0) {
+    res.status(404);
+    res.send("Username or file is missing");
+  } else {
+    let username = req.body.username;
+    let image = req.files.image;
+    let path = "./static/img/" + image.name;
+
+    // gli assegno il path della cartella e salvo il file
+    image.mv(path, (err: any) => {
+      if (err) {
+        res.status(500);
+        res.send(err.message);
+      } else {
+        //salvo su Cloudinary
+        cloudinary.v2.uploader
+          .upload(path, {
+            folder: "myImages",
+            use_filename: true, // mantiene il nome del file così com'è
+          })
+          .then((result: UploadApiResponse) => {
+            // scrivo il nome dell'immagine nel db
+            let record = {
+              username: req.body.username,
+              img: result.secure_url,
+            };
+            let collection = req["connessione"].db(DBNAME).collection("images");
+            collection.insertOne(record, (err: any, data: any) => {
+              if (err) {
+                res.status(500);
+                res.send("Errore inserimento record");
+              } else {
+                res.send(data);
+              }
+              req["connessione"].close();
+            });
+          })
+          .catch((err: any) => {
+            res.status(500);
+            res.send("Error upload file to Cloudinary. Error: " + err.message);
+          });
+      }
+    });
   }
 });
 
