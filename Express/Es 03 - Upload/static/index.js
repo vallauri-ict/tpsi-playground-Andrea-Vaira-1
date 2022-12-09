@@ -136,6 +136,17 @@ $(document).ready(function () {
       });
     }
   });
+
+  $("#prova").on("click", () => {
+    let request = inviaRichiesta(
+      "GET",
+      "https://crudserver-andreavaira.onrender.com/unicorns"
+    );
+    request.done((data) => {
+      console.log(data);
+    });
+    request.fail(errore);
+  });
 });
 
 /* *********************** resizeAndConvert() ****************************** */
