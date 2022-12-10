@@ -70,43 +70,41 @@ $(document).ready(function () {
     });
   });
 
-  _btnInvia.on("click", function () {
+  $("#btnInvia").on("click", function () {
     let to = $("#txtTo").val();
-    let request = inviaRichiesta("POST", "/api/findUser", { to });
-    request.fail((jqXHR, test_status, str_error) => {
+
+    let request = inviaRichiesta("POST", "/api/findUser", { username: to });
+    request.fail(function (jqXHR, test_status, str_error) {
       if (jqXHR.status == 401) {
-        alert("Utente non trovato");
+        _lblErrore.show();
+        _lblErrore.children("span").text("Username o password errati");
       } else errore(jqXHR, test_status, str_error);
     });
     request.done(function (ris) {
       console.log(ris);
+
       let subject = $("#txtSubject").val();
       let message = $("#txtMessage").val();
 
-      if (subject == "" || message == "") {
-        alert("Compila tutti i campi");
-        return;
-      } else {
-        let formData = new FormData();
-        formData.append("from", userLogged);
-        formData.append("to", to);
-        formData.append("subject", subject);
-        formData.append("message", message);
-        if ($("#txtAttachment").prop("files")[0] != null) {
-          formData.append("image", $("#txtAttachment").prop("files")[0]);
-        }
-
-        let request = inviaRichiestaMultipart(
-          "POST",
-          "/api/sendMail",
-          formData
-        );
-        request.fail(errore);
-        request.done(function (data) {
-          console.log(data);
-          alert("Mail inviata");
-        });
+      let formData = new FormData();
+      formData.append("from", userLogged);
+      formData.append("to", to);
+      formData.append("subject", subject);
+      formData.append("message", message);
+      if ($("#txtAttachment").prop("files")[0]) {
+        formData.append("image", $("#txtAttachment").prop("files")[0]);
       }
+
+      let requestMultipart = inviaRichiestaMultipart(
+        "POST",
+        "/api/sendMail",
+        formData
+      );
+      requestMultipart.fail(errore);
+      requestMultipart.done(function (data) {
+        console.log(data);
+        alert("Mail inviata");
+      });
     });
   });
 });

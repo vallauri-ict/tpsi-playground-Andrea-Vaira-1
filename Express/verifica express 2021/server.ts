@@ -111,7 +111,7 @@ app.get("/api/mails", (req: any, res: any, next: any) => {
 
   collection
     .find({ username, password })
-    .project({ mail: 1 , username: 1, _id: 0 })
+    .project({ mail: 1, username: 1, _id: 0 })
     .toArray((err: any, data: any) => {
       if (err) {
         res.status(500);
@@ -130,8 +130,9 @@ app.get("/api/mails", (req: any, res: any, next: any) => {
 });
 
 app.post("/api/findUser", (req: any, res: any, next: any) => {
-  let username = req.body.to;
+  let username = req.body.username;
 
+  console.log(username);
   let collection = req["connessione"].db(DBNAME).collection("mail");
 
   collection.find({ username }).toArray((err: any, data: any) => {
@@ -152,8 +153,7 @@ app.post("/api/findUser", (req: any, res: any, next: any) => {
 });
 
 app.post("/api/sendMail", (req: any, res: any, next: any) => {
-  
-  if(req.files.image != null){
+  if (req.files) {
     let image = req.files.image;
     image.mv("./static/img/" + image.name, (err: any) => {
       if (err) {
@@ -162,34 +162,41 @@ app.post("/api/sendMail", (req: any, res: any, next: any) => {
       } else {
         // scrivo il nome dell'immagine nel db
         let record = {
-          from: req.files.from,
-          subject: req.files.subject,
-          body: req.files.body,
+          from: req.body.from,
+          subject: req.body.subject,
+          body: req.body.message,
           attachment: image.name,
         };
-        let collection = req["connessione"].db(DBNAME).collection("mail");
-        collection.find({ username: req.files.from }).toArray((err: any, data: any) => {
-          if (err) {
-            res.status(500);
-            res.send("Errore esecuzione query");
-          } else {
-            collection.insertOne(record, (err: any, data: any) => {
-              if (err) {
-                res.status(500);
-                res.send("Errore esecuzione query");
-              } else {
-                res.status(200);
-                res.send({ ris: "ok" });
-              }
-              req["connessione"].close();
-            });
-          }
-        });
+        updateRecord(record, req, res);
       }
     });
+  } else {
+    let record = {
+      from: req.body.from,
+      subject: req.body.subject,
+      body: req.body.message,
+    };
+    updateRecord(record, req, res);
+  }
+
+  function updateRecord(record: any, req: any, res: any) {
+    let collection = req["connessione"].db(DBNAME).collection("mail");
+    collection.updateOne(
+      { username: req.body.to },
+      { $push: { mail: record } },
+      (err: any, data: any) => {
+        if (err) {
+          res.status(500);
+          res.send("Errore esecuzione query");
+        } else {
+          res.status(200);
+          res.send({ ris: "ok" });
+        }
+        req["connessione"].close();
+      }
+    );
   }
 });
-
 
 app.get("/api/images", (req: any, res: any, next: any) => {
   let collection = req["connessione"].db(DBNAME).collection("images");
