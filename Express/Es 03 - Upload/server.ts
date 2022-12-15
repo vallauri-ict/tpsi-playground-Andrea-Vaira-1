@@ -48,7 +48,10 @@ app.use("/", express.static("./static"));
 app.use("/", express.json({ limit: "20mb" }));
 app.use("/", express.urlencoded({ limit: "20mb", extended: true }));
 
-// 4 log dei parametri get e post
+// 4 Upload dei file binari
+app.use("/", fileUpload({ limits: { fileSize: 20 * 1024 * 1024 } })); // 20 MB
+
+// 5 log dei parametri get e post
 app.use("/", (req: any, res: any, next: any) => {
   // parametri get .query, post .body
   if (Object.keys(req.query).length != 0) {
@@ -59,9 +62,6 @@ app.use("/", (req: any, res: any, next: any) => {
   }
   next();
 });
-
-// 5 Upload dei file binari
-app.use("/", fileUpload({ limits: { fileSize: 20 * 1024 * 1024 } })); // 20 MB
 
 // Apertura della connessione
 app.use("/api/", (req: any, res: any, next: any) => {
