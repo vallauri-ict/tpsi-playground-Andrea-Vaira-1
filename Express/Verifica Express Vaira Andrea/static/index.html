@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Verifica Express</title>
+	<link rel="icon" href="img/icoVallauri.png" type="image/png" />
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="index.css">
+	<script type="text/javascript" src="libreria.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<!-- Titolo -->
+		<div class="row" id="sez1">
+			<div class="col-sm-1"> </div>
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<img src="img/vallauri.jpg" class="img-fluid">
+				</div>
+				<div class="col-sm-12">
+					<h1> Test sulle conoscenza delle automobili</h1>
+				</div>
+
+				<div class="col-sm-3"> </div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-secondary" id="btnAggiungiDomanda">Aggiungi Domanda</button>
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-secondary" id="btnAvviaTest">Avvia Test</button>
+				</div>
+				<div class="col-sm-3"> </div>
+			</div>
+			<div class="col-sm-1"> </div>
+		</div>
+
+		<div class="row" id="sez2">
+			<div class="col-md-1"></div>
+			<div class="col-md-4 col-sm-5">
+				<div class="form-group input-group">
+					<input type="file" class="form-control" id="txtFile" placeholder="Seleziona un file">
+				</div>
+				<img id="imgNuovaDomanda" src="">
+			</div>
+
+
+			<div class="col-md-6 col-sm-7" id="formNuovaDomanda">
+				<div class="form-group input-group">
+					<input type="text" class="form-control domanda" id="txtDomanda"
+						value="Quale automobile è rappresentata in figura ?">
+				</div>
+				<div class="form-group input-group">
+					<input type="radio" name="radio" value="0">
+					<input type="text" class="form-control risposte" id="txtDomanda1" placeholder="risposta 1">
+				</div>
+				<div class="form-group input-group">
+					<input type="radio" name="radio" value="1">
+					<input type="text" class="form-control risposte" id="txtDomanda2" placeholder="risposta 2">
+				</div>
+				<div class="form-group input-group">
+					<input type="radio" name="radio" value="2">
+					<input type="text" class="form-control risposte" id="txtDomanda3" placeholder="risposta 3">
+				</div>
+				<div class="form-group input-group">
+					<input type="radio" name="radio" value="3">
+					<input type="text" class="form-control risposte" id="txtDomanda4" placeholder="risposta 4">
+				</div>
+
+				<div class="form-group">
+					<button type="button" class="btn btn-secondary btn-block" id="btnCaricaDomanda">
+						Carica Domanda
+					</button>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+
+
+
+		<div class="row" id="sez3">
+			<div class="col-md-2 col-sm-1"></div>
+			<div class="col-md-8 col-sm-10">
+				<h2> Rispondi alle seguenti domande </h2>
+				<div id="elencoDomande">
+					<div class="row">
+						<div class="col-sm-6">
+							<img src="img/img1(500L).jpg">
+						</div>
+						<div class="col-sm-6">
+							<p>Quale automobile è rappresentata in figura ?</p>
+							<input type="radio" name="opt0" id="639495a06a3dd63443d2bb83">
+							<span>Fiat Panda</span>
+							<br>
+							<input type="radio" name="opt0" id="639495a06a3dd63443d2bb83">
+							<span>Audi A2</span>
+							<br>
+							<input type="radio" name="opt0" id="639495a06a3dd63443d2bb83">
+							<span>Fiat 500L</span>
+							<br>
+							<input type="radio" name="opt0" id="639495a06a3dd63443d2bb83">
+							<span>Toyota Yaris</span>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="btn btn-secondary" id="btnInvia"> INVIA
+				</button>
+			</div>
+			<div class="col-md-2 col-sm-1"></div>
+		</div>
+
+</body>
+
+</html>

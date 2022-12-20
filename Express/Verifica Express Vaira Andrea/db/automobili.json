@@ -1,0 +1,52 @@
+[
+{ "domanda": "Quale automobile è rappresentata in figura ?",
+  "img": "img1(500L).jpg",
+  "risposte": [
+    "Fiat Panda",
+    "Audi A2",
+    "Fiat 500L",
+    "Toyota Yaris"
+  ],
+  "correct": 2
+},
+{ "domanda": "Quale automobile è rappresentata in figura ?",
+  "img": "img2(golf).jpg",
+  "risposte": [
+    "Volkswagen Golf",
+    "Volkswagen Polo",
+    "Volkswagen Up",
+    "Audi A2"
+  ],
+  "correct": 0
+},
+{ "domanda": "Quale automobile è rappresentata in figura ?",
+  "img": "img3(compass).jpg",
+  "risposte": [
+    "Audi Q3",
+    "Jeep Compass",
+    "BMW X1",
+    "BMW X2"
+  ],
+  "correct": 1
+},
+{ "domanda": "Quale automobile è rappresentata in figua ?",
+  "img": "img4(kuga).jpg",
+  "risposte": [
+    "BMW x1",
+    "opel  mokka",
+    "ford cMax",
+    "ford kuga"
+  ],
+  "correct": 3
+},
+{ "domanda": "Quale automobile è rappresentata in figua ?",
+  "img": "img5(gla).jpg",
+  "risposte": [
+    "Fiat Sedici",
+    "mercedes GLA",
+    "volkswagen golf",
+    "volkswagen polo"
+  ],
+  "correct": 1
+}
+]

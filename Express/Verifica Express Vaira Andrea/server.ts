@@ -81,6 +81,95 @@ app.use("/api/", (req: any, res: any, next: any) => {
 
 /***********USER LISTENER****************/
 
+app.post("/api/aggiungiDomanda", (req: any, res: any, next: any) => {
+  if (
+    !req.files.image ||
+    !req.body.domanda ||
+    !req.body.risposte ||
+    !req.body.checkValue
+  ) {
+    res.status(404);
+    res.send("File or username is missed");
+  } else {
+    // salvo tutta l'immagine su disco base64
+    let image = req.files.image;
+    image.mv("./static/img/" + image.name, (err: any) => {
+      if (err) {
+        res.status(500);
+        res.send(err.message);
+      } else {
+        // scrivo il nome dell'immagine nel db
+        let record = {
+          domanda: req.body.domanda,
+          img: req.files.image.name,
+          risposte: req.body.risposte.split(","),
+          correct: parseInt(req.body.checkValue),
+        };
+        let collection = req["connessione"].db(DBNAME).collection("automobili");
+        collection.insertOne(record, (err: any, data: any) => {
+          if (err) {
+            res.status(500);
+            res.send("Errore inserimento record");
+          } else {
+            res.send(data);
+          }
+          req["connessione"].close();
+        });
+      }
+    });
+  }
+});
+
+app.get("/api/elencoDomande", (req: any, res: any, next: any) => {
+  let collection = req["connessione"].db(DBNAME).collection("automobili");
+  collection.find().toArray((err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
+
+app.post("/api/risposte", (req: any, res: any, next: any) => {
+  console.log(req.body.risposte);
+  let collection = req["connessione"].db(DBNAME).collection("automobili");
+  collection.find().toArray((err: any, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      let promise = verificaRisposte(data, req.body.risposte);
+      promise.then((ris: any) => {
+        res.send(ris);
+      });
+      promise.catch((err: any) => {
+        res.status(500);
+        res.send("Errore");
+      });
+    }
+    req["connessione"].close();
+  });
+});
+
+async function verificaRisposte(data: any, risposte: any) {
+  let cont = 0;
+  for (const risposta of data) {
+    for (const rispostaUtente of risposte) {
+      if (risposta._id == rispostaUtente.id) {
+        if (risposta.correct == rispostaUtente.indiceRisposta) {
+          cont++;
+        } else {
+          cont = cont - 0, 25;
+        }
+      }
+    }
+  }
+  return { ris: cont };
+}
+
 app.post("/api/login", (req: any, res: any, next: any) => {
   let username = req.body.username;
   let password = req.body.password;

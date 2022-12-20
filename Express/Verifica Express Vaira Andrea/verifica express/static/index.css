@@ -1,0 +1,104 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+/* ************************** Sezione 1 ************************** */
+#sez1{
+	border:1px solid #ccc;
+	padding-top:6px;
+	padding-bottom:20px;
+}
+
+#sez1 img{
+	margin-top:6px;
+}
+
+#sez1 h1{
+	text-align:center;
+	font-style:italic;
+	margin:6px;
+}
+
+#sez1 div{
+	text-align:center;
+}
+
+#sez1 button{
+	width:80%;
+	height:60px;
+	margin-top:10px;
+}
+
+    /* terminale sm  */
+@media  (max-width:768px) {
+	#sez1 button{
+		width:auto;
+	}
+}	
+
+    /* terminale xs  */
+@media  (max-width:576px) {
+	#sez1 button{
+		width:80%;
+	}
+}	
+
+
+/* ************************** Sezione 2 ************************** */
+#sez2{
+	border:1px solid #ccc;
+	padding-top:30px;
+	padding-bottom:12px;
+}
+
+#sez2 input[type=radio]{
+	margin-right:12px;
+}
+
+#sez2 img {
+	width:200px;
+}
+
+
+/* ************************** Sezione 3 ************************** */
+#sez3{
+	border:1px solid #ccc;
+}
+
+#sez3 h2{
+	text-align:center;
+	font-size:18pt;
+	font-weight:bold;
+	padding:12pt;
+}
+
+#sez3 button {
+	float:right;
+}
+
+#elencoDomande {
+	margin-bottom:20px;
+}
+
+#elencoDomande > div {
+	border:1px solid #CCC;	
+}
+
+#elencoDomande > div > div {
+	margin-top:6px;
+	margin-bottom:6px;
+}
+
+#elencoDomande > div > div:nth-of-type(1){
+	text-align:center;
+}
+
+#elencoDomande > div > div > img{
+	width:85%;
+}
+
+#elencoDomande > div > div > p{
+    margin:1.5%;
+	font-weight:bold;
+}
