@@ -41,9 +41,8 @@ $(document).ready(function () {
         } else errore(jqXHR, test_status, str_error);
       });
       request.done(function (data, test_status, jqXHR) {
-        /*console.log(jqXHR.getResponseHeader('Authorization'))			
-				window.location.href = "index.html"*/
-        alert("Ok");
+        //alert(jqXHR.getResponseHeader("Authorization"));
+        window.location.href = "index.html";
       });
     }
   }

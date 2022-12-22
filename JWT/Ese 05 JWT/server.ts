@@ -6,7 +6,7 @@ import fs from "fs";
 import express from "express"; // @types/express
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import { MongoClient, ObjectId } from "mongodb";
+import { Double, MongoClient, ObjectId } from "mongodb";
 import cors from "cors"; // @types/cors
 import fileUpload, { UploadedFile } from "express-fileupload";
 import cloudinary, { UploadApiResponse } from "cloudinary";
@@ -27,7 +27,7 @@ const corsOptions = {
   credentials: true,
 };
 const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
-const DURATA_TOKEN = 20; // sec
+const DURATA_TOKEN = 50; // sec
 
 // ***************************** Avvio ****************************************
 const httpServer = http.createServer(app);
@@ -109,6 +109,13 @@ app.post(
                       res.status(401);
                       res.send("Wrong password");
                     } else {
+                      let token = createToken(dbUser);
+                      res.setHeader("Authorization", token);
+                      // Per permettere le richieste extra domain
+                      res.setHeader(
+                        "Access-Control-Exspose-Headers",
+                        "Authorization"
+                      );
                       res.send({ ris: "ok" });
                     }
                   }
@@ -120,20 +127,55 @@ app.post(
             res.status(500);
             res.send("Query error " + err.message);
             console.log(err.stack);
+          })
+          .finally(() => {
+            client.close();
           });
       })
-      .catch((err:Error)=>{
+      .catch((err: Error) => {
         res.status(503);
-        res.send('Database service unavailable');
+        res.send("Database service unavailable");
       });
   }
 );
 
+function createToken(user: any) {
+  let time: any = new Date().getTime() / 1000;
+  let now = parseInt(time); //Data attuale espressa in secondi
+  let payload = {
+    iat: user.iat || now,
+    exp: now + DURATA_TOKEN,
+    _id: user._id,
+    username: user.username,
+  };
+  let token = jwt.sign(payload, privateKey);
+  console.log("Creato nuovo token " + token);
+  return token;
+}
+
 // 8. gestione Logout
 
 // 9. Controllo del Token
-app.use("/api", function (req, res, next) {
-  next();
+app.use("/api", function (req: any, res, next) {
+  if (!req.headers["Authorization"]) {
+    res.status(403);
+    res.send("Token mancante");
+  } else {
+    let token: any = req.headers.authorization;
+    jwt.verify(token, privateKey, (err: any, payload: any) => {
+      if (err) {
+        res.status(403);
+        res.send("Token scaduto o corrotto");
+      } else {
+        let newToken = createToken(payload);
+        res.setHeader("Authorization", token);
+        // Per permettere le richieste extra domain
+        res.setHeader("Access-Control-Exspose-Headers", "Authorization");
+        req["payload"] = payload;
+        next();
+      }
+    });
+  }
 });
 
 // 10. Apertura della connessione
@@ -153,13 +195,22 @@ app.use("/api/", function (req: any, res: any, next: NextFunction) {
 
 /* ********************* (Sezione 3) USER ROUTES  ************************** */
 
-app.get(
-  "/api/elencoMail",
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(403);
-    res.send("User unauthorized");
-  }
-);
+app.get("/api/elencoMail", (req: any, res: Response, next: NextFunction) => {
+  /*res.status(403);
+    res.send("User unauthorized");*/
+  let collection = req["connessione"].db(DBNAME).collection("mails");
+  let _id = req["payload"]._id;
+  let oId = new ObjectId(_id);
+  collection.findOne({ _id: oId }, (err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data.mail.reverse());
+    }
+    req["connessione"].close();
+  });
+});
 
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */
 // Default route

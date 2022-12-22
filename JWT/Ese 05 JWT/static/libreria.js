@@ -15,7 +15,7 @@ function inviaRichiesta(method, url, parameters = {}) {
         contentType: contentType,
         dataType: "json",
         timeout: 5000,
-		/*beforeSend: function(jqXHR) {
+		beforeSend: function(jqXHR) {
 		   if ("token" in localStorage) {
 				let token = localStorage.getItem("token");  
 			    console.log("SEND -- ", token)
@@ -26,7 +26,7 @@ function inviaRichiesta(method, url, parameters = {}) {
 			let token = jqXHR.getResponseHeader('Authorization')
 			console.log("RECEIVE -- ", token)
 			localStorage.setItem("token", token)  
-		}*/
+		}
     });
 }
 
