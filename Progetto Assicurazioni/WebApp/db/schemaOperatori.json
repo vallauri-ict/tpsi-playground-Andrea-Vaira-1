@@ -4,5 +4,6 @@
   },
   "username": "Admin",
   "password": "admin",
-  "nPerizie":0
+  "nPerizie": 0,
+  "img": "https://www.w3schools.com/howto/img_avatar.png"
 }

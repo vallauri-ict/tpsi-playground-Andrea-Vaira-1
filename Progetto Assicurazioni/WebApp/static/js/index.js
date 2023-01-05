@@ -75,6 +75,7 @@ $(document).ready(function () {
 });
 
 function documentReady() {
+  $("#perizia").hide();
   hideFilter();
   let request = inviaRichiesta("GET", "/api/perizie");
   request.fail(errore);
@@ -83,47 +84,5 @@ function documentReady() {
   });
   $("#btnFilter").on("click", function () {
     showFilter();
-  });
-}
-function hideFilter() {
-  $("#filter").hide();
-  $("#map").css("margin-left", "13%");
-}
-function showFilter() {
-  $("#filter").show();
-  $("#map").css("margin-left", "20px");
-}
-function popolaMappa(perizie) {
-  let geocoder = new google.maps.Geocoder();
-  navigator.geolocation.getCurrentPosition((position) => {
-    let latlng = new google.maps.LatLng(
-      position.coords.latitude,
-      position.coords.longitude
-    );
-    geocoder.geocode({ location: latlng }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        let mapOptions = {
-          center: results[0].geometry.location,
-          zoom: 13,
-          mapTypeId: google.maps.MapTypeId.ROADMAP, // default=ROADMAP
-        };
-        mappa = new google.maps.Map($("#map")[0], mapOptions);
-        for (const perizia of perizie) {
-          let currentPos = new google.maps.LatLng(
-            perizia.coordinate.latitude,
-            perizia.coordinate.longitude
-          );
-          let markerOptions = {
-            map: mappa,
-            position: currentPos,
-            _id: perizia._id,
-          };
-          let marcatore = new google.maps.Marker(markerOptions);
-          marcatore.addListener("click", function () {
-            console.log(this._id);
-          });
-        }
-      }
-    });
   });
 }

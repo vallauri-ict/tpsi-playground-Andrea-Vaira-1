@@ -27,7 +27,7 @@ const corsOptions = {
   credentials: true,
 };
 const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
-const DURATA_TOKEN = 100; // sec
+const DURATA_TOKEN = 1000; // sec
 
 // ***************************** Avvio ****************************************
 const httpServer = http.createServer(app);
@@ -209,8 +209,6 @@ app.get("/api/perizie", (req: any, res: Response, next: NextFunction) => {
     req["connessione"].close();
   });
 });
-    
-
 
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */
 // Default route
