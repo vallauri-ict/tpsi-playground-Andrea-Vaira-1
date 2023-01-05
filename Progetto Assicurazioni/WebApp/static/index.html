@@ -72,12 +72,29 @@
         </div>
     </div>
 
-    <div id="perizia">
-        <div id="dettagliPerizia">
-
+    <div id="perizia" style="width: 80%;  margin: 5% 10%; display: block; margin-bottom: 0; ">
+        <div id="dettagliPerizia"
+            style="background-color: white; padding: 20px; border-radius: 10px 10px; width: 46%;  display: inline-block; margin-right: 7%;">
+            <h1 style="text-align: center;">Dettagli perizia</h1>
+            <img src="img/icoVallauri.png" alt="" style="border-radius: 50% 50%; width: 100px; height: 100px;">
+            <h3 style="display: inline-block; margin-left: 30px;">Nome Operatore</h3>
+            <br>
+            <h3><b>DataOra</b></h3>
+            <span>12/12/1200 10:12</span>
+            <br>
+            <h3><b>Indirizzo</b></h3>
+            <span>via roma 12</span>
+            <br>
+            <h3><b>Descrizione</b></h3>
+            <div class="form-group">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                    style="border-radius: 0 0 10px 10px; border: 0px solid black;"></textarea>
+            </div>
+        </div>
+        <div id="mappaPercorso">
         </div>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-            style="width: 80%;  margin: 5% 10%; display: block; margin-bottom: 0;" data-interval="false">
+            style="margin-top: 5%; display: block; margin-bottom: 0;" data-interval="false">
             <div class="carousel-inner" style="border-radius: 10px 10px 0 0; ">
                 <div class="carousel-item active">
                     <img src="img/download.jfif" class="d-block w-100" alt="...">
@@ -98,13 +115,13 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <div id="commentCarousel" style="width: 80%;  margin: 5% 10%;  margin-top:0; display: block;">
+        <div id="commentCarousel" style=" display: block;">
             <div class="form-group">
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
                     style="border-radius: 0 0 10px 10px; "></textarea>
             </div>
             <button type="button" class="btn btn-success btn-lg"
-                style="float: right; font-weight: bold;">Replace</button>
+                style="float: right; font-weight: bold; margin-bottom: 20px;">Replace</button>
         </div>
 
     </div>
@@ -131,6 +148,15 @@
         margin: 20px 20px;
         border-radius: 15px 15px;
         display: block;
+    }
+
+    #mappaPercorso {
+        padding: 20px;
+        border-radius: 10px 10px;
+        width: 37%;
+        height: 56%;
+        display: inline-block;
+        position: absolute;
     }
 
     #filter {
