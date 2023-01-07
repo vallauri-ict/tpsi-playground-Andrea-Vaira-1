@@ -66,6 +66,11 @@ $(document).ready(function () {
 const url = "https://maps.googleapis.com/maps/api";
 let mappa;
 
+let commenti = {
+  vetCommenti: [],
+  index: 0,
+};
+
 $(document).ready(function () {
   // creazione dinamica del CDN di accesso alle google maps
   var script = document.createElement("script");
@@ -84,5 +89,68 @@ function documentReady() {
   });
   $("#btnFilter").on("click", function () {
     showFilter();
+  });
+
+  /**** carousel management *****/
+  $(".carousel-control-prev").on("click", function () {
+    commenti.vetCommenti[commenti.index] = $(
+      "#exampleFormControlTextarea1"
+    ).val();
+    if (commenti.index == 0) commenti.index = commenti.vetCommenti.length - 1;
+    else commenti.index--;
+    $("#exampleFormControlTextarea1").val(commenti.vetCommenti[commenti.index]);
+  });
+
+  $(".carousel-control-next").on("click", function () {
+    commenti.vetCommenti[commenti.index] = $(
+      "#exampleFormControlTextarea1"
+    ).val();
+    if (commenti.index == commenti.vetCommenti.length - 1) commenti.index = 0;
+    else commenti.index++;
+    $("#exampleFormControlTextarea1").val(commenti.vetCommenti[commenti.index]);
+  });
+}
+
+function popolaPerizia(perizia) {
+  let divperizia = $("#dettagliPerizia");
+  let requestOperatore = inviaRichiesta("GET", "/api/operatore", {
+    _id: perizia.codOperatore,
+  });
+  requestOperatore.fail(errore);
+  requestOperatore.done(function (operatore) {
+    console.log(operatore);
+    operatore = operatore[0];
+    divperizia.children("img").eq(0).attr("src", operatore['"img"']);
+    divperizia.children("h3").eq(0).text(operatore.username);
+
+    let date = new Date(perizia["data-ora"]);
+    let dataFormattata =
+      date.toLocaleDateString() + " " + date.toLocaleTimeString();
+    divperizia.children("h4").eq(0).text(dataFormattata);
+
+    divperizia.children("h4").eq(1).text(getIndirizzo(perizia.coordinate));
+
+    divperizia.find("textarea").eq(0).text(perizia.descrizione);
+
+    commenti.vetCommenti = [];
+    commenti.index = 0;
+    for (const img of perizia.foto) {
+      let div = $("<div>");
+      div.addClass("carousel-item");
+      let imgTag = $("<img>");
+      imgTag.addClass("d-block w-100");
+      imgTag.prop("src", img.img);
+      div.append(imgTag);
+      $("#carouselExampleControls").children("div").append(div);
+      commenti.vetCommenti.push(img.commento);
+    }
+    $("#carouselExampleControls")
+      .children("div")
+      .children("div")
+      .eq(0)
+      .addClass("active");
+    $("#exampleFormControlTextarea2")
+      .eq(0)
+      .text(commenti.vetCommenti[commenti.index]);
   });
 }

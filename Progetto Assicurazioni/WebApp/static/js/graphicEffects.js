@@ -1,5 +1,6 @@
 "use strict";
 
+
 function hideFilter() {
   $("#filter").hide();
   $("#map").css("margin-left", "13%");

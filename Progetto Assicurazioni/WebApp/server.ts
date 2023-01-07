@@ -210,6 +210,21 @@ app.get("/api/perizie", (req: any, res: Response, next: NextFunction) => {
   });
 });
 
+app.get("/api/operatore", (req: any, res: Response, next: NextFunction) => {
+  let _id = new ObjectId(req.query._id);
+  let collection = req["connessione"].db(DBNAME).collection("operatori");
+  collection.find({_id: _id}).toArray((err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
+
+
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */
 // Default route
 app.use("/", function (req: any, res: any, next: NextFunction) {

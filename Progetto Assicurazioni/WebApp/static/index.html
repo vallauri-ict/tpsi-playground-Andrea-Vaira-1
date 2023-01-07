@@ -75,36 +75,32 @@
     <div id="perizia" style="width: 80%;  margin: 5% 10%; display: block; margin-bottom: 0; ">
         <div id="dettagliPerizia"
             style="background-color: white; padding: 20px; border-radius: 10px 10px; width: 46%;  display: inline-block; margin-right: 7%;">
-            <h1 style="text-align: center;">Dettagli perizia</h1>
-            <img src="img/icoVallauri.png" alt="" style="border-radius: 50% 50%; width: 100px; height: 100px;">
+            <h1 style="text-align: center; font-weight: bold;">Dettagli perizia</h1>
+            <img src="" alt="" style="border-radius: 50% 50%; width: 100px; height: 100px;">
             <h3 style="display: inline-block; margin-left: 30px;">Nome Operatore</h3>
             <br>
-            <h3><b>DataOra</b></h3>
-            <span>12/12/1200 10:12</span>
+            <h3><b>DataOra: </b></h3>
+            <h4>12/12/1200 10:12</h4>
             <br>
-            <h3><b>Indirizzo</b></h3>
-            <span>via roma 12</span>
+            <h3><b>Indirizzo: </b></h3>
+            <h4>via roma 12</h4>
             <br>
             <h3><b>Descrizione</b></h3>
             <div class="form-group">
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
-                    style="border-radius: 0 0 10px 10px; border: 0px solid black;"></textarea>
+                    style="border-radius: 0 0 10px 10px; border: 0px solid black; font-size: larger;"></textarea>
             </div>
         </div>
-        <div id="mappaPercorso">
+        <div id="divMappaPercorso">
+            <div id="mappaPercorso">
+            </div>
+            <h3 style="text-align:center; color: white; margin-left: 20px; margin-top: 8px;">Tempo di percorrenza: <span
+                    id="tempoPercorrenza">10 min</span></h3>
         </div>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
             style="margin-top: 5%; display: block; margin-bottom: 0;" data-interval="false">
             <div class="carousel-inner" style="border-radius: 10px 10px 0 0; ">
-                <div class="carousel-item active">
-                    <img src="img/download.jfif" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/download.jfif" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/download.jfif" class="d-block w-100" alt="...">
-                </div>
+
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -117,8 +113,8 @@
         </div>
         <div id="commentCarousel" style=" display: block;">
             <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
-                    style="border-radius: 0 0 10px 10px; "></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea2" rows="6"
+                    style="border-radius: 0 0 10px 10px; font-size: larger;"></textarea>
             </div>
             <button type="button" class="btn btn-success btn-lg"
                 style="float: right; font-weight: bold; margin-bottom: 20px;">Replace</button>
@@ -150,13 +146,24 @@
         display: block;
     }
 
-    #mappaPercorso {
-        padding: 20px;
+    #divMappaPercorso {
         border-radius: 10px 10px;
         width: 37%;
-        height: 56%;
+        height: 58%;
         display: inline-block;
         position: absolute;
+    }
+
+    #mappaPercorso {
+        width: 100%;
+        height: 91%;
+        border-radius: 10px 10px;
+    }
+
+    #dettagliPerizia>h3,
+    #dettagliPerizia>h4 {
+        display: inline-block;
+        margin-top: 10px;
     }
 
     #filter {

@@ -1,70 +1,5 @@
 "use strict";
 
-function disegnaPercorso(perizia, latlng) {
-  let directionsService = new google.maps.DirectionsService();
-  let routesOptions = {
-    origin: latlng,
-    destination: new google.maps.LatLng(
-      perizia.coordinate.latitude,
-      perizia.coordinate.longitude
-    ),
-    travelMode: google.maps.TravelMode.DRIVING, // default
-    provideRouteAlternatives: true, // default=false
-    avoidTolls: false, // default (pedaggi)
-  };
-
-  let promise = directionsService.route(routesOptions);
-  promise.then(function (directionsRoutes) {
-    let mapOptions = {
-      /*zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,*/
-    };
-    let mappa = new google.maps.Map(
-      document.getElementById("#mappaPercorso"),
-      mapOptions
-    );
-    if (directionsRoutes.status == google.maps.DirectionsStatus.OK) {
-      console.log(directionsRoutes.routes[0]);
-      let i = 1;
-
-      for (const route of directionsRoutes.routes) {
-        let color;
-
-        if (i == 1) {
-          color = "#44F";
-        } else {
-          color = `rgb(${60 * i}, ${60 * i}, ${60 * i})`;
-        }
-        let renderOptions = {
-          polylineOptions: {
-            strokeColor: color, // colore del percorso
-            strokeWeight: 6, // spessore
-            zIndex: 100 - i, // posizionamento
-          },
-        };
-
-        let directionRenderer = new google.maps.DirectionsRenderer(
-          renderOptions
-        );
-
-        directionRenderer.setMap(mappa);
-        directionRenderer.setRouteIndex(i - 1);
-        directionRenderer.setDirections(directionsRoutes);
-
-        let distanza = route.legs[0].distance.text;
-        let tempo = route.legs[0].duration.text;
-
-        console.log(distanza, tempo);
-
-        i++;
-      }
-    }
-  });
-  promise.catch(function () {
-    console.log("errore");
-  });
-}
-
 
 function popolaMappa(perizie) {
   let geocoder = new google.maps.Geocoder();
@@ -80,7 +15,7 @@ function popolaMappa(perizie) {
           zoom: 13,
           mapTypeId: google.maps.MapTypeId.ROADMAP, // default=ROADMAP
         };
-        mappa = new google.maps.Map($("#map")[0], mapOptions);
+        let mappa = new google.maps.Map($("#map")[0], mapOptions);
         for (const perizia of perizie) {
           let currentPos = new google.maps.LatLng(
             perizia.coordinate.latitude,
@@ -98,19 +33,65 @@ function popolaMappa(perizie) {
             $("#home").hide();
 
             disegnaPercorso(this.perizia, latlng);
-
-            /*directionsService.route(routesOptions, function (directionsRoutes) {
-              //let mapOptions = {};
-              let mappa = new google.maps.Map(
-                $("#mappaPercorso")[0],
-                mapOptions
-              );
-              if (directionsRoutes.status == google.maps.DirectionsStatus.OK)
-                console.log(directionsRoutes.routes[0]);
-            });*/
           });
         }
       }
     });
   });
 }
+
+function disegnaPercorso(perizia, latlng) {
+  var directionsService = new google.maps.DirectionsService();
+  var routesOptions = {
+    origin: latlng,
+    destination: new google.maps.LatLng(
+      perizia.coordinate.latitude,
+      perizia.coordinate.longitude
+    ),
+    travelMode: google.maps.TravelMode.DRIVING, // default
+    provideRouteAlternatives: true, // default=false
+    avoidTolls: false, // default (con pedaggi)
+  };
+  directionsService.route(routesOptions, function (directionsRoutes) {
+    let mapOptions = {};
+    var mappa = new google.maps.Map($("#mappaPercorso")[0], mapOptions);
+    if (directionsRoutes.status == google.maps.DirectionsStatus.OK) {
+      console.log(directionsRoutes.routes[0]);
+
+      let renderOptions = {
+        polylineOptions: {
+          strokeColor: "#44F", // colore del percorso
+          strokeWeight: 6, // spessore
+          zIndex: 100, // posizionamento
+        },
+      };
+      let directionsRenderer = new google.maps.DirectionsRenderer(
+        renderOptions
+      );
+      directionsRenderer.setMap(mappa); // Collego il renderer alla mappa
+      directionsRenderer.setRouteIndex(0);
+      directionsRenderer.setDirections(directionsRoutes);
+
+      $("#tempoPercorrenza").text(
+        directionsRoutes.routes[0].legs[0].duration.text
+      );
+
+      popolaPerizia(perizia);
+    }
+  });
+}
+
+function getIndirizzo(coordinate){
+  let geocoder = new google.maps.Geocoder();
+  let latlng = new google.maps.LatLng(coordinate.latitude, coordinate.longitude);
+  geocoder.geocode({ location: latlng }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      return results[0].formatted_address;
+    }
+  });
+}
+
+
+
+
+
