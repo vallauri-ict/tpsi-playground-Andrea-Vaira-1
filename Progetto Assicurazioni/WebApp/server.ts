@@ -213,7 +213,7 @@ app.get("/api/perizie", (req: any, res: Response, next: NextFunction) => {
 app.get("/api/operatore", (req: any, res: Response, next: NextFunction) => {
   let _id = new ObjectId(req.query._id);
   let collection = req["connessione"].db(DBNAME).collection("operatori");
-  collection.find({_id: _id}).toArray((err: Error, data: any) => {
+  collection.find({ _id: _id }).toArray((err: Error, data: any) => {
     if (err) {
       res.status(500);
       res.send("Errore esecuzione query");
@@ -224,7 +224,43 @@ app.get("/api/operatore", (req: any, res: Response, next: NextFunction) => {
   });
 });
 
+app.post(
+  "/api/aggiornaPerizia",
+  (req: any, res: Response, next: NextFunction) => {
+    let descrizione = req.body.descrizione;
+    let foto = req.body.foto;
+    let _id = new ObjectId(req.body.id);
 
+    let collection = req["connessione"].db(DBNAME).collection("perizie");
+
+    collection.updateOne(
+      { _id: _id },
+      { $set: { descrizione: descrizione, foto: JSON.parse(foto) }},
+      (err: Error, data: any) => {
+        if (err) {
+          res.status(500);
+          res.send("Errore esecuzione query");
+        } else {
+          res.send({ ris: "ok" });
+        }
+        req["connessione"].close();
+      }
+    );
+  }
+);
+
+app.get("/api/operatori", (req: any, res: Response, next: NextFunction) => {
+  let collection = req["connessione"].db(DBNAME).collection("operatori");
+  collection.find({}).toArray((err: Error, data: any) => {
+    if (err) {
+      res.status(500);
+      res.send("Errore esecuzione query");
+    } else {
+      res.send(data);
+    }
+    req["connessione"].close();
+  });
+});
 /* ********************** (Sezione 4) DEFAULT ROUTE  ************************* */
 // Default route
 app.use("/", function (req: any, res: any, next: NextFunction) {

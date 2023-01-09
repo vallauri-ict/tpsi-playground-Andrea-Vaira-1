@@ -89,26 +89,65 @@ function documentReady() {
   });
   $("#btnFilter").on("click", function () {
     showFilter();
+    let request = inviaRichiesta("GET", "/api/operatori");
+    request.fail(errore);
+    request.done(function (operatori) {
+      popolaOperatori(operatori);
+    });
   });
 
   /**** carousel management *****/
   $(".carousel-control-prev").on("click", function () {
     commenti.vetCommenti[commenti.index] = $(
-      "#exampleFormControlTextarea1"
+      "#exampleFormControlTextarea2"
     ).val();
     if (commenti.index == 0) commenti.index = commenti.vetCommenti.length - 1;
     else commenti.index--;
-    $("#exampleFormControlTextarea1").val(commenti.vetCommenti[commenti.index]);
+    $("#exampleFormControlTextarea2").val(commenti.vetCommenti[commenti.index]);
+    console.log(commenti.vetCommenti);
   });
 
   $(".carousel-control-next").on("click", function () {
     commenti.vetCommenti[commenti.index] = $(
-      "#exampleFormControlTextarea1"
+      "#exampleFormControlTextarea2"
     ).val();
     if (commenti.index == commenti.vetCommenti.length - 1) commenti.index = 0;
     else commenti.index++;
-    $("#exampleFormControlTextarea1").val(commenti.vetCommenti[commenti.index]);
+    $("#exampleFormControlTextarea2").val(commenti.vetCommenti[commenti.index]);
+    console.log(commenti.vetCommenti);
   });
+
+  $("#commentCarousel")
+    .children("button")
+    .eq(0)
+    .on("click", function () {
+      let descrizione = $("#exampleFormControlTextarea1").val();
+
+      commenti.vetCommenti[commenti.index] = $(
+        "#exampleFormControlTextarea2"
+      ).val();
+
+      let foto = [];
+      let imgs = $("#carouselExampleControls").find("img");
+      for (let i = 0; i < commenti.vetCommenti.length; i++) {
+        let record = {
+          img: imgs.eq(i).prop("src"),
+          commento: commenti.vetCommenti[i++],
+        };
+        foto.push(record);
+      }
+
+      let request = inviaRichiesta("POST", "/api/aggiornaPerizia", {
+        descrizione,
+        foto: JSON.stringify(foto),
+        id: $(this).prop("id"),
+      });
+      request.fail(errore);
+      request.done(function (data) {
+        $("#perizia").hide();
+        $("#home").show();
+      });
+    });
 }
 
 function popolaPerizia(perizia) {
@@ -118,7 +157,6 @@ function popolaPerizia(perizia) {
   });
   requestOperatore.fail(errore);
   requestOperatore.done(function (operatore) {
-    console.log(operatore);
     operatore = operatore[0];
     divperizia.children("img").eq(0).attr("src", operatore['"img"']);
     divperizia.children("h3").eq(0).text(operatore.username);
@@ -153,4 +191,29 @@ function popolaPerizia(perizia) {
       .eq(0)
       .text(commenti.vetCommenti[commenti.index]);
   });
+
+  $("#commentCarousel").children("button").eq(0).prop("id", perizia._id);
+}
+
+function popolaOperatori(operatori) {
+  /**<li class="list-group-item d-flex justify-content-between align-items-center">
+                    A list item
+                    <span class="badge badge-success badge-pill">14</span>
+                </li> */
+  $("#filter").children("ul").eq(0).empty();
+  let length = operatori.length;
+  if (operatori.length > 15) {
+    length = 15;
+  }
+  for (let index = 0; index <=length; index++) {
+      const operatore = operatori[index];
+      let li = $("<li>");
+      li.addClass("list-group-item d-flex justify-content-between align-items-center");
+      li.text(operatore.username.toCa);
+      let span = $("<span>");
+      span.addClass("badge badge-success badge-pill");
+      span.text(operatore.nPerizie);
+      li.append(span);
+      $("#filter").children("ul").eq(0).append(li);
+    }
 }
