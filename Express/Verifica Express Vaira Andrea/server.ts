@@ -136,7 +136,7 @@ app.get("/api/elencoDomande", (req: any, res: any, next: any) => {
 app.post("/api/risposte", (req: any, res: any, next: any) => {
   console.log(req.body.risposte);
   let collection = req["connessione"].db(DBNAME).collection("automobili");
-  collection.find().toArray((err: any, data: any) => {
+  /*collection.find().toArray((err: any, data: any) => {
     if (err) {
       res.status(500);
       res.send("Errore esecuzione query");
@@ -151,7 +151,34 @@ app.post("/api/risposte", (req: any, res: any, next: any) => {
       });
     }
     req["connessione"].close();
-  });
+  });*/
+
+  let promises = [];
+  for (const item of req.body.risposte) {
+    let _id = new ObjectId(item.id);
+    let promise = collection.findOne({ _id: _id });
+    promises.push(promise);
+  }
+  Promise.all(promises)
+    .then((questions) => {
+      // richiamato quando tutte le promise del vettore hanno finito
+      // l'ordine del vettore question è lo stesso identico di come sono state lanciate le richeste
+      let voto = 0;
+      for (let i = 0; i < questions.length; i++) {
+        if (questions[i].correct == req.body.risposte[i].indiceRisposta) {
+          voto++;
+        } else {
+          voto = voto - 0.25;
+        }
+      }
+      res.send({ ris: voto });
+      req["connessione"].close();
+    })
+    .catch((err) => {
+      res.status(500);
+      res.send("Errore");
+      req["connessione"].close();
+    });
 });
 
 async function verificaRisposte(data: any, risposte: any) {
@@ -162,7 +189,7 @@ async function verificaRisposte(data: any, risposte: any) {
         if (risposta.correct == rispostaUtente.indiceRisposta) {
           cont++;
         } else {
-          cont = cont - 0, 25;
+          (cont = cont - 0), 25;
         }
       }
     }
