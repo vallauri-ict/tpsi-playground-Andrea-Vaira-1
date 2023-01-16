@@ -1,6 +1,6 @@
 "use strict";
 
-const URL = "https://10.88.233.111:1338";
+const URL = "https://10.88.243.235:1338";
 
 function inviaRichiesta(method, url, parameters={}) {
 	let contentType;
