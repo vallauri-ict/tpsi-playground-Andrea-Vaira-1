@@ -1,7 +1,7 @@
 ﻿"use strict";
 // cordova plugin add cordova-plugin-dialogs, cordova-plugin-geolocation
 
-$(document).ready(async function () {
+window.onload = async function(){
   await caricaGoogleMaps();
 
   document.addEventListener("deviceready", function () {
@@ -12,7 +12,7 @@ $(document).ready(async function () {
     $("#btnArresta").on("click", stopWatch);
 
     let gpsOptions = {
-      enableHighAccuracy: true,
+      enableHighAccuracy: false,  // meno preciso, bassa risoluzione
       timeout: 5000,
       maximumAge: 0,
     };
@@ -75,7 +75,7 @@ $(document).ready(async function () {
       console.log("Errore: " + err.code + " - " + err.message);
     }
   });
-});
+};
 
 function notifica(msg) {
   navigator.notification.alert(
