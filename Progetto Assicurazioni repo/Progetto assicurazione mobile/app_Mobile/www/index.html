@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src *;  script-src * 'unsafe-inline';  style-src * 'unsafe-inline';  img-src *  data:  content:; ">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width,
+         viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+    <title>Assicurazioni</title>
+</head>
+
+<body>
+    <div id="deviceready" class="blink">
+        <div id="home" class="card">
+            <h1 align="center">Welcome</h1>
+
+            <br>
+            <!--<img src="img/mdi-user-circle.png" id="logo" />-->
+            <button id="btnNewReport">New report</button>
+            <button id="btnUserSettings">User settings</button>
+        </div>
+
+        <div id="section">
+            <div id="newReport" class="card">
+                <h1 align="center">New Report</h1>
+                <br>
+                <!--<img src="img/mdi-user-circle.png" id="logo" />-->
+                <h2 align="center">Description</h2>
+                <textarea name="" id="txtDescrizione" cols="20" rows="5"></textarea>
+                <button id="btnAddImage">Add image</button>
+                <div id="actionButton" class="d-flex justify-content-center">
+                    <button id="btnMakePhoto"><iconify-icon style=" width: 100%;"
+                            icon="material-symbols:photo-camera-outline-rounded" width="50"
+                            flip="horizontal"></iconify-icon></button>
+                    <button id="btnFindPhoto"><iconify-icon style=" width: 100%;" icon="ooui:image-gallery" width="50"
+                            height="50" flip="horizontal"></iconify-icon></button>
+                </div>
+                <div id="newPhto">
+                    <div id="photo" class="d-flex justify-content-center">
+                        <img src="img/download.jfif" alt="" id="imgPhoto" style="width: 200px;">
+                    </div>
+                    <div id="photo" class="d-flex justify-content-center">
+                        <textarea name="" id="" cols="30" rows="3"
+                            style="width: 65%;  margin-right: 0; margin-left:0 ;"></textarea>
+                        <button id="btnSendPhoto" style="margin-top:8px;"><iconify-icon
+                                style="width: 100%; margin-top: 2px;" icon="material-symbols:send-rounded" width="50"
+                                height="50" rotate="180deg" flip="horizontal"></iconify-icon></iconify-icon></button>
+                    </div>
+                </div>
+
+                <button id="btnSend">Send</button>
+            </div>
+            <div id="UserSettings" class="card">
+                <div id="userSettings">
+                    <img src="img/mdi-user-circle.png" id="logo" style="margin-bottom: 0px;" />
+                    <h1 align="center">User Settings</h1>
+                    <h2 style="padding-left: 10%;">Number report: </h2>
+                    <h3 style="padding-left: 10%;">Email </h3>
+                    <input style="margin-top: 0px;" type="text" id="txtMail">
+                    <h3 style="padding-left: 10%;">Name </h3>
+                    <input style="margin-top: 0px;" type="text" id="txtName">
+                    <div id="newPwd">
+                        <h3 style="padding-left: 10%;">Password </h3>
+                        <input style="margin-top: 0px;  margin-bottom: 5px;" type="password">
+                        <h3 style="padding-left: 10%;">Repeat Password </h3>
+                        <input style="margin-top: 0px;" type="password">
+                        <button id="btnUpdatePwd">Update password</button>
+                    </div>
+                    <button id="btnNewPwd">New password</button>
+                    <button id="btnUpdate">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="cordova.js"></script>
+    <script type="text/javascript" src="js/libreria.js"></script>
+    <script type="text/javascript" src="js/environment.js"></script>
+    <!--Per la mappa-->
+    <script type="text/javascript" src="js/mappa.js"></script>
+    <!--Per le animazioni-->
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
