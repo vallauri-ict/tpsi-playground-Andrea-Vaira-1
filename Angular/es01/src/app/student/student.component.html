@@ -1,5 +1,12 @@
-<p *ngFor="let student of studentList">student {{student.name}} from {{student.city}} is
+<p *ngFor="let student of studentList; let i=index"
+  [ngStyle]="getStyle(student)"
+  [ngClass]="getClasses(student)">
+  <!-- [ngStyle]="{'background-color': student.gender == 'F' ? 'pink':'cyan'}" -->
+  <!-- [ngClass]="{'underlined': !student.present, 'blink': student.city == 'Fossano'}" -->
+
+  {{i+1}} - student {{student.name}} from {{student.city}} is
   <span *ngIf="student.present;else printAbsent">Present</span>
   <!--<span *ngIf="!student.present">Absent</span>-->
+
   <ng-template #printAbsent><span>Absent</span></ng-template>
 </p>

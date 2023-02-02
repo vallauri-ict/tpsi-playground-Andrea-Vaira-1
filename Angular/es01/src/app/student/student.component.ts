@@ -26,6 +26,20 @@ export class StudentComponent {
     //this.student = this.studentList[pos];
   }
 
+  getStyle(student:any){
+    const color = student.gender == 'F'? 'pink':'cyan';
+    return{
+      "backgroundColor":color
+    }
+  }
+
+  getClasses(student:any){
+    let isBlinked = student.city == 'Fossano'
+    return {
+      "blink":isBlinked
+    }
+  }
+
   generaNumero(a: number, b: number) {
     return Math.floor((b - a + 1) * Math.random()) + a;
   }
