@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <h2>Add Student</h2>
+  <label for="txtName">student name: </label>
+  <input type="text" id="txtName" #txtName [(ngModel)]="studentName">
+  <br>
+
+  <span class="gender">
+    <input type="radio" name="gender" value="M" [(ngModel)]="studentGender">
+    Male
+    <input type="radio" name="gender" value="F" [(ngModel)]="studentGender">
+    Female
+  </span>
+
+  <select class="city" [(ngModel)]="studentCity" >
+    <option *ngFor="let city of cities">{{city}}</option>
+  </select>
+
+  <button class="add" (click)="onCreateStudent()" [disabled]="studentName.length == 0">
+    Add Student
+  </button>
+  <hr>
+
+
+  <div class="student" *ngFor="let item of studentList; let i = index">
+    <span>{{i+1}} => </span>
+    <app-student [student]="item"></app-student>
+    <button class="elimina" (click)="onDeleteStudent(i)">Elimina</button>
+  </div>
+</div>
+

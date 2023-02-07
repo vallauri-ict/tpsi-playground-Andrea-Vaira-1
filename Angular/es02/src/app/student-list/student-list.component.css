@@ -1,0 +1,36 @@
+.wrapper
+{
+  text-align: center;
+}
+.student{
+  margin-top: 10px;
+}
+
+.add{
+  background-color: #1976d2;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  color: whitesmoke;
+}
+
+.add:disabled{
+  background-color: darkslategray;
+}
+
+.gender{
+  margin-top: 10px;
+}
+.city{
+  margin: 5px auto;
+  margin-top: 15px;
+  width: 140px;
+  display: block;
+}
+
+.elimina{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
