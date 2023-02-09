@@ -1,8 +1,4 @@
-<span
-  [ngStyle]="getStyle(student)"
-  [ngClass]="getClasses(student)"
-  (click)="onStudentClick()"
-  class="cliccable">
+<span [ngStyle]="getStyle(student)" [ngClass]="getClasses(student)" (click)="onStudentClick()" class="cliccable">
   <!-- [ngStyle]="{'background-color': student.gender == 'F' ? 'pink':'cyan'}" -->
   <!-- [ngClass]="{'underlined': !student.present, 'blink': student.city == 'Fossano'}" -->
 
@@ -11,4 +7,6 @@
   <!--<span *ngIf="!student.present">Absent</span>-->
 
   <ng-template #printAbsent><span>Absent</span></ng-template>
+
+  <button class="elimina" (click)="onDeleteStudent()">Elimina</button>
 </span>

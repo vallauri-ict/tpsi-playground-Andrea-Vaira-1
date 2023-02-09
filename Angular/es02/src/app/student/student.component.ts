@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-student',
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class StudentComponent {
   @Input() student: any;
+  @Output() deleteStudentEvent = new EventEmitter<any>();
   //student: any = {};
 
   constructor() {
@@ -34,6 +35,10 @@ export class StudentComponent {
     return {
       blink: !student.present,
     };
+  }
+
+  onDeleteStudent(){
+    this.deleteStudentEvent.emit(this.student);
   }
 
   generaNumero(a: number, b: number) {

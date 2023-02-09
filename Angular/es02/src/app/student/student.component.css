@@ -8,7 +8,10 @@
 }
 
 
-
+.elimina{
+  margin-left: 10px;
+  cursor: pointer;
+}
 .blink {
   animation: blink-animation 1s steps(5, start) infinite;
   -webkit-animation: blink-animation 1s steps(5, start) infinite;

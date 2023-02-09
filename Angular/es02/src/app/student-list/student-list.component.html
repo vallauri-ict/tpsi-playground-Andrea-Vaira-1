@@ -23,8 +23,8 @@
 
   <div class="student" *ngFor="let item of studentList; let i = index">
     <span>{{i+1}} => </span>
-    <app-student [student]="item"></app-student>
-    <button class="elimina" (click)="onDeleteStudent(i)">Elimina</button>
+    <app-student [student]="item" (deleteStudentEvent)="onDeleteStudentEvent($event)"></app-student>
+    <!-- <button class="elimina" (click)="onDeleteStudent(i)">Elimina</button> -->
   </div>
 </div>
 

@@ -40,7 +40,12 @@ export class StudentListComponent {
     this._txtName.nativeElement.focus();
   }
 
-  onDeleteStudent(i:number){
+  /*onDeleteStudent(i:number){
+    this.studentList.splice(i, 1);
+  }*/
+
+  onDeleteStudentEvent(student:any) {
+    let i:number = this.studentList.indexOf(student);
     this.studentList.splice(i, 1);
   }
 }
