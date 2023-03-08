@@ -1,0 +1,32 @@
+
+h1{
+	text-align:center
+}
+
+#btnConnetti{
+	margin-left: 12px;
+}
+
+#wrapper {
+	height:80%;
+	overflow:auto;				
+	margin: 12px;
+	padding: 8px;
+	background-color: #fee;			
+}	
+
+
+
+/* queste classi sono usate dalla funzione visualizza() */
+
+.message-container {
+	margin: 12px 0;
+	padding: 8px;
+	background-color: #f1eeee;
+}
+.message-data {
+	font-weight: bold;
+}
+.message-from {
+	font-style: italic;
+}						

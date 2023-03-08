@@ -1,0 +1,74 @@
+[{
+  "_id": {
+    "$oid": "63ad5d73aa3bc839cdc8dfd7"
+  },
+  "password": "$2a$10$CjiZ1gZaI.TiutVQgcuzd.X1jx7cejqK8zbxpTEfd3TnryDyMhyWO",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1674556506/assicurazioni/kmrebeeubvwfv7v3lla2.jpg",
+  "nPerizie": "1",
+  "email": "pippo@gmail.com",
+  "nome": "Pippo",
+  "img": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1674499797/assicurazioni/nnfnkqziyoxnuja2c7hl.jpg"
+},{
+  "_id": {
+    "$oid": "63ad5dd1aa3bc839cdc8dfda"
+  },
+  "password": "$2a$12$viQCnb2EaHSUJUDUgjyOuuCW4y69vtGAp5h0o6TrORGdOGAmHn0A2",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932988/assicurazioni/image_pb8zhr.jpg",
+  "email": "pluto@gmail.com",
+  "nome": "Pluto"
+},{
+  "_id": {
+    "$oid": "63ad5dfcaa3bc839cdc8dfdb"
+  },
+  "password": "$2a$12$6goSKoLF8tpxGWWdDpXsVOsi4gxDV1rCHUe.OeckV41ZzlzQQCNvG",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png",
+  "email": "admin@gmail.com",
+  "nome": "Admin"
+},{
+  "_id": {
+    "$oid": "63cc667150cb1334106c9053"
+  },
+  "email": "andreavaira2004@gmail.com",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1674510649/assicurazioni/wgix9oqxeeytxof8esvi.png",
+  "nPerizie": "0",
+  "nome": "Andrea vaira",
+  "password": "$2a$10$9aKrzMIibpRIBbMqtJt4ruB9Pn3RSsPrlHx1yLTOf7TMAXrZp.cu2"
+},{
+  "_id": {
+    "$oid": "63cc88363d5ae03d95c51647"
+  },
+  "password": "$2a$10$9aKrzMIibpRIBbMqtJt4ruB9Pn3RSsPrlHx1yLTOf7TMAXrZp.cu2",
+  "nome": "Pietro",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png",
+  "email": "pietro@gmail.com"
+},{
+  "_id": {
+    "$oid": "63ce3a3874c767ad32ec2495"
+  },
+  "password": "$2a$10$a8pi6BFTYwUMQ3hEAK63geh.Y2kTDvFKNglgSdqA3j/SSfxN23Ezm",
+  "nome": "Paolo",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png",
+  "email": "paolo@gmail.com"
+},{
+  "_id": {
+    "$oid": "63ce3de374c767ad32ec2496"
+  },
+  "password": "$2a$10$l3Hdily8TlMyFmNPwnvP2efF2v6ZVIeKVqkA8Wha9unDMXCvx/ys.",
+  "nome": "Simone Fiorentino",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png",
+  "email": "simo.fiorentino04@gmail.com"
+},{
+  "_id": {
+    "$oid": "63d11be9c97895ca67d6848a"
+  },
+  "password": "$2a$10$FSZrJXat9KFzmoui0mOJTO8SkKOL2xpJrS2cpCMHz4hFfyC2h2Hbi",
+  "nome": "Francesco",
+  "mail": "francesco@gmail.com",
+  "nPerizie": "0",
+  "\"img\"": "https://res.cloudinary.com/dfrqbcbln/image/upload/v1672932919/assicurazioni/img_avatar_e9p0bx.png"
+}]

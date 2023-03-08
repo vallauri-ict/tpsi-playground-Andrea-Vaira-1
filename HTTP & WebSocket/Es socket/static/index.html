@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+    <link rel="icon" href="img/icoVallauri.png" type="image/png" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js">
+    </script>
+
+    <link rel="stylesheet" href="index.css">
+    <script src="axios@1.1.2.min.js"></script>
+    <script src="libreria.js"></script>
+    <script src="index.js"></script>
+</head>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- LOGO SUPERIORE -->
+            <div class='col-xl-2'> </div>
+            <div class='col-xl-8 col-lg-12'>
+                <div class='row align-items-center' style="padding-top:30px; padding-bottom:45px;">
+                    <div class="col-sm-1"> </div>
+                    <div class="col-sm-5 text-center">
+                        <img src="img/vallauri.jpg" class="img-fluid">
+                    </div>
+                    <div class="col-sm-5 text-center">
+                        <button class="btn btn-light menu" value="home" autocomplete="off">
+							Home
+						</button>
+                        <button class="btn btn-light menu" value="utenti" autocomplete="off">
+							Utente
+						</button>
+                        <button class="btn btn-light menu" value="stanze" autocomplete="off">
+							Stanza
+						</button>
+                        <button class="btn btn-light menu" value="chat" >
+							Chat
+						</button>
+                    </div>
+                    <div class='col-sm-1'> </div>
+                </div>
+			</div>
+			<div class='col-xl-2'> </div>
+		</div> 
+		<div class="row">
+			<div class="col-sm-3"> </div> 	
+			<div class="col-sm-3 col-md-2">
+				<span>Utente: </span>
+				<strong id="selectedUser"> </strong>
+			</div>
+			<div class="col-sm-2">
+				<span>Stanza: </span>
+				<strong id="selectedRoom"> </strong>
+			</div>
+			<div class="col-sm-4 col-md-5"> </div> 
+		</div>
+	
+		<!-- ********************** 1 HOME *********************** -->
+		<div class='row home'>
+			<div class="col-sm-12 text-center">
+				<h2 style="margin-top:20px; margin-bottom:30px;">
+					La chat online più accattivante di sempre
+				</h2>
+				<img src="img/chat.jpg" class="img-fluid">
+			</div>
+		</div>
+
+
+		<!-- ********************* 2 UTENTI ********************* -->
+		<div class='row align-items-center utenti'>
+			<div class="col-lg-4 col-md-3"> </div>
+			<div class="col-lg-4 col-md-6 text-center">
+				<fieldset class="border p-2">
+					<legend class="w-auto"><b>Scegli un Utente</b></legend>
+					<div class='row'>
+						<div class="col-sm-2  col-md-3"></div> 
+						<div class="col-sm-10 col-md-9 text-sm-left"  id="divUtenti"> 
+							<!-- da cancellare 
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioUser">
+								<span> utente 1 </span>
+							</label>
+							<img src="img/user.jpg">
+							<br>
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioUser">
+								<span> utente 2 </span>
+							</label>
+							<img src="img/user.jpg">
+							<br>
+							<!-- fino qui -->
+						</div>																	
+					</div>
+				</fieldset>					
+			</div>			
+			<div class="col-lg-4 col-md-3"> </div>
+		</div>
+
+
+		<!-- *********************** 3 STANZE ************************ -->
+		<div class='row stanze'>
+			<div class="col-lg-4 col-md-3"> </div>
+			<div class="col-lg-4 col-md-6 text-center">
+				<fieldset class="border p-2">
+					<legend class="w-auto"><b>Scegli una Stanza</b></legend>
+					<div class='row'>
+						<div class="col-sm-2 col-md-3"></div> 
+						<div class="col-sm-8 col-md-6 text-sm-left" id="divStanze"> 
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioRoom">
+								<span>redRoom</span>
+							</label>
+							<br>
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioRoom">
+								<span>greenRoom</span>
+							</label>
+							<br>
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioRoom">
+								<span>blueRoom</span>
+							</label>
+							<br>
+							<label class="form-check-label">
+								<input type="radio" class="form-check-input" name="radioRoom">
+								<span>defaulyRoom</span>
+							</label>
+							<br>
+						</div>
+						<div class="col-sm-3"> </div>																		
+					</div>
+				</fieldset>					
+			</div>			
+			<div class="col-lg-4 col-md-3"> </div>
+		</div>
+
+		<!-- *************** 4 CHAT ************** -->
+		<div class='container chat'>
+			<h1>Vallauri Chat</h1>
+			<button class="	btn btn-primary" id="btnConnetti">Connetti</button>
+			<button class="	btn btn-primary" id="btnDisconnetti">Disconnetti</button>
+			
+			<div id="wrapper" >
+				<!-- Qui verranno visualizzati i messaggi provenienti dagli utenti -->
+			</div>
+
+			<!-- invio di un nuovo messaggio -->
+			<div class="row">
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="txtMessage" placeholder="Inserisci qui il tuo messaggio">
+				</div>
+				<div class="col-sm-6">
+					<button class="	btn btn-primary"id="btnInvia">Invia</button>
+				</div>
+		</div>
+	</div>
+</body>
+
+</html>
