@@ -1,8 +1,11 @@
-
-.row{
-	width:100%;
+.row {
+  width: 100%;
 }
 
-button{
-	margin:20px;
+button {
+  margin: 20px;
+}
+
+table {
+  margin-top: 30px;
 }

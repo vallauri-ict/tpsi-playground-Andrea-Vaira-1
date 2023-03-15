@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 // config
 const app = express();
 dotenv.config({ path: ".env" });
-const DB_NAME = "5B";
+const DB_NAME = "5b";
 const connectionString: string | undefined = process.env.connectionString;
 const COLLECTION = "bigData";
 const HTTP_PORT = 1337;
