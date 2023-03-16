@@ -43,43 +43,41 @@ $(document).ready(function () {
                 name: "radioUser",
               })
               .addClass("form-check-input")
-			  .on('click', function(){
-				selectedUser.text(user.username);
-			  })
+              .on("click", function () {
+                selectedUser.text(user.username);
+              })
           )
-          .append($("<span>").text(user.username)
-		);
-		let image='img/'+user.img;
-		if(user.img == "")
-			image='img/default.jpg';
-        $("<img>").prop('src', image).appendTo(divUtenti);
-		$('<br>').appendTo(divUtenti);
+          .append($("<span>").text(user.username));
+        let image = "img/" + user.img;
+        if (user.img == "") image = "img/default.jpg";
+        $("<img>").prop("src", image).appendTo(divUtenti);
+        $("<br>").appendTo(divUtenti);
       }
     });
     request.catch(errore);
   });
 
-  divStanze.find('input').on('click', function(){
-	selectedRoom.text($(this).next().text());
-  })
+  divStanze.find("input").on("click", function () {
+    selectedRoom.text($(this).next().text());
+  });
 
-  menuButtons.eq(3).on('click', function(){
-	if(selectedUser.text != '' && selectedRoom.text != ""){
-		btnConnetti.prop('disabled', false);
-	}
-  })
+  menuButtons.eq(3).on("click", function () {
+    if (selectedUser.text != "" && selectedRoom.text != "") {
+      btnConnetti.prop("disabled", false);
+    }
+  });
 
   // ******************* SOCKET *************************
   let serverSocket;
   $("#btnConnetti").on("click", function () {
     let options = { transports: ["websocket"], upgrade: false };
     serverSocket = io(options).connect();
-	serverSocket.on('connect', ()=>{
-		let user = {
-			username: selectedUser.text(),
-			room:selectedRoom.text()
-		}
-		serverSocket.emit('login', JSON.stringify(user));
-	})
+    serverSocket.on("connect", () => {
+      let user = {
+        username: selectedUser.text(),
+        room: selectedRoom.text(),
+      };
+      serverSocket.emit("joinRoom", JSON.stringify(user));
+    });
   });
 });

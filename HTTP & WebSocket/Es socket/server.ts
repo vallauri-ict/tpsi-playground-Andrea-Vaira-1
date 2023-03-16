@@ -102,13 +102,28 @@ app.use("/api/", function (req:any, res, next) {
 
 app.get('/api/utenti', function(req:any, res, next) {
 	let collection = req["connessione"].db(DB_NAME).collection("images");
-	collection.find({'occupato':false}).toArray(function(err:any, data:any) {
-		if (err) {
-			res.status(500).send("Errore esecuzione query")
-		} 
-		else {
-			res.send(data);
-		}
+	// collection.find({'occupato':false}).toArray(function(err:any, data:any) {
+	// 	if (err) {
+	// 		res.status(500).send("Errore esecuzione query")
+	// 	} 
+	// 	else {
+	// 		res.send(data);
+	// 	}
+	// 	req["connessione"].close();
+	// })
+
+	// Gestione con la promise
+	collection
+	.find({ occupato: false })
+	.toArray()
+	.then((data:any[])=>{
+		res.send(data);
+	})
+	.catch((err:Error)=>{
+		res.status(500).send("Errore esecuzione query");
+		console.log('Errore: '+err);
+	})
+	.finally(()=>{
 		req["connessione"].close();
 	})
 }) 
@@ -144,7 +159,9 @@ let users:any[] = [];
 
 io.on('connection', function (clientSocket:Socket) {
 	let user = {} as {username:string, room:string, socket:Socket};
-	
+	clientSocket.on('joinRoom', (clientUser)=>{
+
+	})
 
 
 });
