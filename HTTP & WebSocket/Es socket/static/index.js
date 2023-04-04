@@ -1,4 +1,6 @@
 "use strict";
+
+
 $(document).ready(function () {
   let menuButtons = $(".menu");
   let selectedUser = $("#selectedUser");
@@ -68,6 +70,18 @@ $(document).ready(function () {
       btnConnetti.prop("disabled", false);
     }
   });
+
+  $('#btnAdd').on('click', ()=>{
+    let formData = new FormData();
+    formData.append("username", $("#newUser").val());
+    formData.append("image", $("#txtFile").prop('files')[0]);
+
+    let request = inviaRichiesta('PUT', '/api/addUser', formData);
+    request.then(()=>{
+      alert('Utente inserito correttamente');
+    })
+    request.catch(errore);
+  })
 
   // ******************* SOCKET *************************
   let serverSocket;

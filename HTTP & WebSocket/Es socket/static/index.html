@@ -49,17 +49,21 @@
 			</div>
 			<div class='col-xl-2'> </div>
 		</div> 
-		<div class="row">
-			<div class="col-sm-3"> </div> 	
-			<div class="col-sm-3 col-md-2">
+		<div class="row header">
+			<div class="col-md-2"> </div>
+			<div class="col-md-2">
 				<span>Utente: </span>
-				<strong id="selectedUser"> </strong>
+				<strong id="selectedUser"></strong>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-md-2">
 				<span>Stanza: </span>
-				<strong id="selectedRoom"> </strong>
+				<strong id="selectedRoom"></strong>
 			</div>
-			<div class="col-sm-4 col-md-5"> </div> 
+			<div class="col-md-6"> 
+					<input type="file" id="txtFile">
+					<input type="text" id="newUser" placeholder="your username">
+					<input type="button" id="btnAdd" value="Add New User">
+			</div> 
 		</div>
 	
 		<!-- ********************** 1 HOME *********************** -->
@@ -114,22 +118,22 @@
 						<div class="col-sm-2 col-md-3"></div> 
 						<div class="col-sm-8 col-md-6 text-sm-left" id="divStanze"> 
 							<label class="form-check-label">
-								<input type="radio" class="form-check-input" name="radioRoom">
+								<input type="radio" class="form-check-input" name="radioRoom" autocomplete="off">
 								<span>redRoom</span>
 							</label>
 							<br>
 							<label class="form-check-label">
-								<input type="radio" class="form-check-input" name="radioRoom">
+								<input type="radio" class="form-check-input" name="radioRoom" autocomplete="off">
 								<span>greenRoom</span>
 							</label>
 							<br>
 							<label class="form-check-label">
-								<input type="radio" class="form-check-input" name="radioRoom">
+								<input type="radio" class="form-check-input" name="radioRoom" autocomplete="off">
 								<span>blueRoom</span>
 							</label>
 							<br>
 							<label class="form-check-label">
-								<input type="radio" class="form-check-input" name="radioRoom">
+								<input type="radio" class="form-check-input" name="radioRoom" autocomplete="off">
 								<span>defaulyRoom</span>
 							</label>
 							<br>

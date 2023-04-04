@@ -3,7 +3,7 @@ import http from "http";
 import url from "url";
 import fs from "fs";
 import dotenv from "dotenv";
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import express from "express"; // @types/express
 import cors from "cors"; // @types/cors
 import fileUpload, { UploadedFile } from "express-fileupload";
@@ -52,7 +52,10 @@ app.use("/", express.static("./static"));
 app.use("/", express.json({ limit: "50mb" }));
 app.use("/", express.urlencoded({ limit: "50mb", extended: true }));
 
-// 4 log dei parametri get e post
+// 4 Upload dei file binari
+app.use("/", fileUpload({ limits: { fileSize: 20 * 1024 * 1024 } })); // 20 MB
+
+// 5 log dei parametri get e post
 app.use("/", (req: any, res: any, next: any) => {
   if (Object.keys(req.query).length != 0) {
     console.log("------> Parametri GET: " + JSON.stringify(req.query));
@@ -120,6 +123,40 @@ app.get("/api/utenti", function (req: any, res, next) {
     .finally(() => {
       req["connessione"].close();
     });
+});
+
+app.put("/api/addUser", function (req: any, res, next) {
+  let collection = req['connessione'].db(DB_NAME).collection('images');
+  let user = req.body.username;
+  let img = req.files.image;
+  if(!user || !img){
+    res.status(400).send('Parametro mancante');
+  }
+  else{
+    img.mv('./static/img/'+img.name, (err:Error)=>{
+      if(err){
+        res.status(500).send('Errore upload file '+err.message);
+      }
+      else{
+        let newDocument:any = {
+          'username': user,
+          'img':img.name,
+          'occupato':false
+        }
+        collection
+        .insertOne(newDocument)
+        .then((data:any)=>{
+          res.send(data);
+        })
+        .catch((err:Error)=>{
+          res.status(503).send('Syntax error in query '+err.message);
+        })
+        .finally(()=>{
+          req['connessione'].close();
+        })
+      }
+    })
+  }
 });
 
 // Default route

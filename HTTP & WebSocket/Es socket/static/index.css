@@ -1,7 +1,17 @@
 
+.header{
+	margin-bottom:15px;
+}
+
+fieldset{
+	border:1px solid #ccc;
+	border-radius:6px;
+}
+
 #divUtenti img{
-	max-height:55px;
+	max-height:54px;
 	border-radius:16px;
+	margin:2px;
 }
 
 #divUtenti span{

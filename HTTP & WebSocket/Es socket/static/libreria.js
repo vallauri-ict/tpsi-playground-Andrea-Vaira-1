@@ -1,22 +1,7 @@
 "use strict";
 
-const _URL = "http://localhost:1337"
-
-
-function caricaGoogleMaps(){
-	let promise =  new Promise(function(resolve, reject){
-		var script = document.createElement('script');
-		script.type = 'text/javascript';
-		script.src = MAPS_URL + '/js?v=3&key=' + MAP_KEY;
-		document.body.appendChild(script);
-		script.onload = resolve;  // onload non inietta alcun dato
-		script.onerror = function (){
-		    reject("Errore caricamento GoogleMaps")
-		}
-	})
-	return promise
-}
-
+const _URL = "" // "http://localhost:1337"
+// Se vuota viene assegnata in automatico l'origine da cui è stata scaricata la pagina
 
 function inviaRichiesta(method, url, parameters={}) {
 	let config={
@@ -29,28 +14,27 @@ function inviaRichiesta(method, url, parameters={}) {
 		"timeout": 5000,
 		"responseType": "json",
 	}
-	if(method.toUpperCase()=="GET"){
+	if(parameters instanceof FormData){
+		config.headers["Content-Type"]='multipart/form-data;' 
+		config["data"]=parameters     // Accept FormData, File, Blob
+	}	
+	else if(method.toUpperCase()=="GET"){
 	   config.headers["Content-Type"]='application/x-www-form-urlencoded;charset=utf-8' 
-	   config["params"]=parameters   // plain object or URLSearchParams object
+	   config["params"]=parameters   
 	}
 	else{
 		config.headers["Content-Type"] = 'application/json; charset=utf-8' 
-		config["data"]=parameters     // Accept FormData, File, Blob
+		config["data"]=parameters    
 	}	
-	return axios(config)              // return a promise
+	return axios(config)             
 }
-
 
 function errore(err) {
 	if(!err.response) 
 		alert("Connection Refused or Server timeout");	
 	else if (err.response.status == 200)
         alert("Formato dei dati non corretto : " + err.response.data);
-    else
-        alert("Server Error: " + err.response.status + " - " + err.message);
-}
-
-
-function generaNumero(a, b){
-	return Math.floor((b-a)*Math.random()) + a;
+    else{
+        alert("Server Error: " + err.response.status + " - " + err.response.data);
+	}
 }
