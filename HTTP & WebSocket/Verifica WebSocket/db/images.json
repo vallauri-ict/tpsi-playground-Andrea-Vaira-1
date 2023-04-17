@@ -1,0 +1,17 @@
+[
+  {"username":"pippo",  "img":"img6.jpg", "occupato":false },
+  {"username":"pluto",  "img":"img2.jpg", "occupato":false },
+  {"username":"minnie", "img":"img3.jpg", "occupato":false },
+  {"username":"sonny",  "img":"img4.jpg", "occupato":false },
+  {"username":"sally",  "img":"",         "occupato":false },
+  {"username":"elly",   "img":"img1.jpg", "occupato":false },
+  {"username":"fanny",  "img":"img7.jpg", "occupato":false },
+  {"username":"colly",  "img":"img8.jpg", "occupato":false },
+  {"username":"sanny",  "img":"img9.jpg", "occupato":false },
+  {"username":"annie",  "img":"img10.jpg", "occupato":false },
+  {"username":"carla",  "img":"img11.jpg", "occupato":false },
+  {"username":"fonzie", "img":"img12.jpg", "occupato":false },
+  {"username":"ralph",  "img":"img13.jpg", "occupato":false },
+  {"username":"john",   "img":"img14.jpg", "occupato":false },
+  {"username":"jonny",  "img":"img15.jpg", "occupato":false }
+]
